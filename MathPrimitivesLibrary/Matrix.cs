@@ -6,9 +6,6 @@
     public int Coloumns { get; private set; }
     public double[,] Data { get; private set; }
 
-    public Matrix()
-    {
-    }
     public Matrix(int n)
     {
       Data = new double[n, n];
@@ -39,7 +36,10 @@
 
     public Matrix(Matrix m)
     {
-      Data.CopyTo(m.Data, 0);
+      if (Data != null)
+      {
+        Data.CopyTo(m.Data, 0);
+      }
       Rows = m.Rows;
       Coloumns = m.Coloumns;
     }

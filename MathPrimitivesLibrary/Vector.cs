@@ -16,10 +16,6 @@
 
     public int Size { get; private set; }
     public double Length { get { return DotProduct(this, this); } }
-    public Vector()
-    {
-
-    }
 
     public Vector(int n)
     {
@@ -70,10 +66,10 @@
       return sum;
     }
 
-    public Vector CrossProduct(Vector v1, Vector v2)
+    /*public Vector CrossProduct(Vector v1, Vector v2)
     {
-      return new Vector();
-    }
+      return new Vector( ;
+    }*/
     public double this[int i]
     {
       get { return Data[i]; }
