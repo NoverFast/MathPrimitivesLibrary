@@ -17,7 +17,7 @@ namespace MathPrimitiveLibrary
     }
 
     public int Size { get; private set; }
-    public double Length { get { return DotProduct(this, this); } }
+    public double Length { get { return DotProduct(this); } }
 
     public Vector(int n)
     {
@@ -54,16 +54,16 @@ namespace MathPrimitiveLibrary
       }
     }
 
-    public double DotProduct(Vector v1, Vector v2)
+    public double DotProduct(Vector v)
     {
-      if (v1.Size != v2.Size)
+      if (this.Size != v.Size)
       {
         throw new Exception("Vector Sizes are different!");
       }
       double sum = 0;
-      for (int i = 0; i < v1.Size; i++)
+      for (int i = 0; i < this.Size; i++)
       {
-        sum += v1[i] * v2[i];
+        sum += this[i] * v[i];
       }
       return sum;
     }
