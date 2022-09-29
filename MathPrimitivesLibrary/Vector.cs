@@ -1,4 +1,6 @@
-﻿namespace MathPrimitiveLibrary
+﻿using System;
+
+namespace MathPrimitiveLibrary
 {
   public class Vector
   {

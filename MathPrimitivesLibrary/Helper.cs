@@ -1,6 +1,8 @@
-﻿namespace MathPrimitiveLibrary
+﻿using System;
+using System.Collections.Generic;
+
+namespace MathPrimitiveLibrary
 {
-  
   static class Helper
   {
     public static int KroneckerSymbol(int i, int j) => i == j ? 1 : 0;
