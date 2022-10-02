@@ -150,6 +150,19 @@ namespace MathPrimitivesLibrary
       return newArray;
     }
 
+    public double[] ToArray()
+    {
+      double[] newArray = new double[this.Rows * this.Coloumns];
+      for (int i =0; i < this.Rows; i++)
+      {
+        for (int j = 0; j < this.Coloumns; j++)
+        {
+          newArray[i*j] = this[i, j];
+        }
+      }
+      return newArray;
+    }
+
     public double this[int i, int j]
     {
       get { return Data[i, j]; }
