@@ -42,11 +42,11 @@ namespace MathPrimitivesLibrary
       {
         Data.CopyTo(m.Data, 0);
       }
-      Rows = m.Rows;
-      Coloumns = m.Coloumns;
+      m.Rows = Rows;
+      m.Coloumns = Coloumns;
     }
     
-    public void ShowMatrix()
+    public void Show()
     {
       for (int i =0; i < Rows; i++)
       {
@@ -71,27 +71,44 @@ namespace MathPrimitivesLibrary
     public Matrix Transpose()
     {
       Matrix transposedMatrix = new Matrix(Coloumns, Rows);
-      if (Rows == transposedMatrix.Coloumns && Coloumns == transposedMatrix.Rows)
+      for (int i = 0; i < transposedMatrix.Rows; i++)
       {
-        for (int i =0; i < transposedMatrix.Rows; i++)
+        for (int j = 0; j < transposedMatrix.Coloumns; j++)
         {
-          for (int j =0; j < transposedMatrix.Coloumns; j++)
-          {
-            transposedMatrix[i, j] = this[j, i];
-          }
+          transposedMatrix[i, j] = this[j, i];
         }
-      }
-      else
-      {
-        for (int i =0; i < transposedMatrix.Rows; i++)
-        {
-          for (int j =0; j < transposedMatrix.Coloumns; j++)
-          {
-
-          }
-        }
-      }
+      }      
       return transposedMatrix;
+    }
+
+    public double Determinant()
+    {
+      double determinant = 0;
+      for (int i =0; i < Coloumns; i++)
+      {
+        for (int j =0; j < Rows; j++)
+        {
+
+        }
+      }
+      return determinant;
+    }
+
+    public Matrix Triagonalize()
+    {
+      Console.WriteLine();
+      Matrix triangleMatrix = new Matrix(this.Rows, this.Coloumns, this.Data);
+      for (int i =0; i < triangleMatrix.Coloumns - 2; i++)
+      {
+        for (int j = i + 1; j < triangleMatrix.Coloumns - 1; j++)
+        {
+          for (int k =0; k < triangleMatrix.Coloumns; k++)
+          {
+            triangleMatrix[j, k] -= triangleMatrix[j, i] / triangleMatrix[i, i] * triangleMatrix[j, k];
+          }
+        }
+      }
+      return triangleMatrix;
     }
 
     public void CopyTo(Matrix m)
@@ -99,6 +116,26 @@ namespace MathPrimitivesLibrary
       Data.CopyTo(m.Data, 0);
       Coloumns = m.Coloumns;
       Rows = m.Rows;
+    }
+
+    public double[] this[int i]
+    {
+      get 
+      {
+        double[] dataLine = new double[this.Coloumns];
+        for (int k =0; k < Data.Length; i++)
+        {
+          dataLine[i] = this[i, k];
+        }
+        return dataLine;
+      }
+      set
+      {
+        for (int k = 0; k < value.Length; k++)
+        {
+          Data[i, k] = value[k];
+        }
+      }
     }
 
     public double this[int i, int j]

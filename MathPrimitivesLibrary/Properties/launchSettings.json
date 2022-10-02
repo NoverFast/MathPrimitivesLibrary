@@ -2,7 +2,7 @@
   "profiles": {
     "MathPrimitivesLibrary": {
       "commandName": "Executable",
-      "executablePath": "C:\\Users\\onver\\source\\repos\\Programming-Tech\\OptimizationMethods\\bin\\Debug\\OptimizationMethods.exe"
+      "executablePath": "C:\\Users\\onver\\source\\repos\\Optimization-Methods\\OptimizationMethods\\bin\\Debug\\OptimizationMethods.exe"
     }
   }
 }
