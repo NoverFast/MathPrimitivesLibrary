@@ -23,7 +23,7 @@ namespace MathPrimitivesLibrary
     {
       Rows = data.GetLength(0);
       Coloumns = data.GetLength(1);
-      this.Data = data;
+      Data = (double[,])data.Clone();
     }
     public Matrix(int rows, int coloumns, double[,] data)
     {
@@ -33,17 +33,14 @@ namespace MathPrimitivesLibrary
       {
         throw new Exception("Data size is not the same as matrix size!");
       }
-      this.Data = data;
+      Data = (double[,])data.Clone();
     }
 
     public Matrix(Matrix m)
     {
-      if (Data != null)
-      {
-        Data.CopyTo(m.Data, 0);
-      }
-      m.Rows = Rows;
-      m.Coloumns = Coloumns;
+      Rows = m.Rows;
+      Coloumns = m.Coloumns;
+      Data = (double[,])m.Data.Clone();
     }
     
     public void Show()
@@ -83,26 +80,34 @@ namespace MathPrimitivesLibrary
 
     public double Determinant()
     {
-      double determinant = 0;
-      for (int i =0; i < Coloumns; i++)
+      double determinant = 1;
+      Matrix m = new Matrix(this.Triagonalize());
+      for (int i =0; i < m.Rows; i++)
       {
-        for (int j =0; j < Rows; j++)
+        for (int j =0; j < m.Coloumns;j++)
         {
-
+          if (Helper.KroneckerSymbol(i, j) == 1)
+          {
+            determinant *= m[i, j];
+          }
         }
       }
       return determinant;
     }
 
+    // Диагонализованные элементы не должны быть равны нулю!!!
     public Matrix Triagonalize()
     {
-      Console.WriteLine();
       Matrix triangleMatrix = new Matrix(this.Rows, this.Coloumns, this.Data);
-      for (int i =0; i < triangleMatrix.Coloumns - 2; i++)
+      for (int i = 0; i < triangleMatrix.Rows - 1; i++)
       {
-        for (int j = i + 1; j < triangleMatrix.Coloumns - 1; j++)
+        for (int j = i + 1; j < triangleMatrix.Coloumns; j++)
         {
-            triangleMatrix[j] -= triangleMatrix[j, i] / triangleMatrix[i, i] * triangleMatrix[j]; 
+          double koef = triangleMatrix[j, i] / triangleMatrix[i, i];
+          for (int k = 0; k < triangleMatrix.Coloumns; k++)
+          {
+            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef;
+          }
         }
       }
       return triangleMatrix;
