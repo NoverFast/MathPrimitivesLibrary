@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MathPrimitiveLibrary
+namespace MathPrimitivesLibrary
 {
   public class Matrix
   {
@@ -58,7 +58,7 @@ namespace MathPrimitiveLibrary
       }
     }
 
-    public Matrix InverseMatrix()
+    public Matrix Inverse()
     {
       double determinant = Data[0, 0] * Data[1, 1] - Data[0, 1] * Data[1, 0];
       return new Matrix(2, 2, new double[,]
@@ -68,6 +68,31 @@ namespace MathPrimitiveLibrary
       });
     }
 
+    public Matrix Transpose()
+    {
+      Matrix transposedMatrix = new Matrix(Coloumns, Rows);
+      if (Rows == transposedMatrix.Coloumns && Coloumns == transposedMatrix.Rows)
+      {
+        for (int i =0; i < transposedMatrix.Rows; i++)
+        {
+          for (int j =0; j < transposedMatrix.Coloumns; j++)
+          {
+            transposedMatrix[i, j] = this[j, i];
+          }
+        }
+      }
+      else
+      {
+        for (int i =0; i < transposedMatrix.Rows; i++)
+        {
+          for (int j =0; j < transposedMatrix.Coloumns; j++)
+          {
+
+          }
+        }
+      }
+      return transposedMatrix;
+    }
 
     public void CopyTo(Matrix m)
     {

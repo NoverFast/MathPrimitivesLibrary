@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MathPrimitiveLibrary
+namespace MathPrimitivesLibrary
 {
   static class Helper
   {
