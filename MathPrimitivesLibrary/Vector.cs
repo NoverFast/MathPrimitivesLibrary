@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MathPrimitiveLibrary
+namespace MathPrimitivesLibrary
 {
   public class Vector
   {
