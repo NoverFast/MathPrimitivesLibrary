@@ -102,10 +102,7 @@ namespace MathPrimitivesLibrary
       {
         for (int j = i + 1; j < triangleMatrix.Coloumns - 1; j++)
         {
-          for (int k =0; k < triangleMatrix.Coloumns; k++)
-          {
-            triangleMatrix[j, k] -= triangleMatrix[j, i] / triangleMatrix[i, i] * triangleMatrix[j, k];
-          }
+            triangleMatrix[j] -= triangleMatrix[j, i] / triangleMatrix[i, i] * triangleMatrix[j]; 
         }
       }
       return triangleMatrix;
@@ -118,24 +115,39 @@ namespace MathPrimitivesLibrary
       Rows = m.Rows;
     }
 
-    public double[] this[int i]
+    public Vector this[int i]
     {
-      get 
+      get
       {
-        double[] dataLine = new double[this.Coloumns];
-        for (int k =0; k < Data.Length; i++)
+        Vector v = new Vector(this.Coloumns);
+        for (int k = 0; k < this.Coloumns; k++)
         {
-          dataLine[i] = this[i, k];
+          v[i] = this[i, k];
         }
-        return dataLine;
+        return v;
       }
       set
       {
-        for (int k = 0; k < value.Length; k++)
+        for (int k =0; k < value.Size; k++)
         {
           Data[i, k] = value[k];
         }
       }
+    }
+
+    public double[,] To2DArray()
+    {
+      double[,] newArray = new double[this.Rows, this.Coloumns];
+      {
+        for (int i =0; i < this.Rows;i++)
+        {
+          for (int j=0; j < this.Coloumns;j++)
+          {
+            newArray[i, j] = this[i, j];
+          }
+        }
+      }
+      return newArray;
     }
 
     public double this[int i, int j]

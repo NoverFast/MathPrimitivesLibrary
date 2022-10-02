@@ -72,6 +72,17 @@ namespace MathPrimitivesLibrary
     {
       return new Vector( ;
     }*/
+
+    public double[] ToArray()
+    {
+      double[] newArray =  new double[this.Size];
+      for (int i =0; i < this.Size;i++)
+      {
+        newArray[i] = this[i];
+      }
+      return newArray;
+    }
+
     public double this[int i]
     {
       get { return Data[i]; }
