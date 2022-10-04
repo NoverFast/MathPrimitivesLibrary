@@ -1,0 +1,195 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MathPrimitivesLibrary.Solvers
+{
+  public abstract class AbstractSolver
+  {
+    enum LUEnum
+    {
+      L = 0,
+      U = 1
+    }
+    private List<double[,]> LUDecomposition(double[,] matrix)
+    {
+      List<double[,]> LU = new List<double[,]>(2);
+      double[,] L = new double[matrix.GetLength(0), matrix.GetLength(0)];
+      double[,] U = matrix;
+
+      for (int i = 0; i < matrix.GetLength(0); i++)
+      {
+        for (int j = i; j < matrix.GetLength(0); j++)
+        {
+          L[j, i] = U[j, i] / U[i, i];
+        }
+      }
+
+      for (int k = 1; k < matrix.GetLength(0); k++)
+      {
+        for (int i = k - 1; i < matrix.GetLength(0); i++)
+        {
+          for (int j = i; j < matrix.GetLength(0); j++)
+          {
+            L[j, i] = U[j, i] / U[i, i];
+          }
+        }
+
+        for (int i = k; i < matrix.GetLength(0); i++)
+        {
+          for (int j = k - 1; j < matrix.GetLength(0); j++)
+          {
+            U[i, j] = U[i, j] - L[i, k - 1] * U[k - 1, j];
+          }
+        }
+      }
+      LU.Add(L);
+      LU.Add(U);
+      return LU;
+    }
+    private List<double> LUSolver(double[,] matrix, double[] freeCoefs)
+    {
+      List<double[,]> LU = LUDecomposition(matrix);
+      double[,] L = LU[(int)LUEnum.L];
+      double[,] U = LU[(int)LUEnum.U];
+      List<double> answerVector = new List<double>();
+      List<double> yVector = new List<double>();
+      List<double> temp = new List<double>();
+      yVector.Add(freeCoefs[0] / L[0, 0]);
+      for (int i = 0; i < matrix.GetLength(0); i++)
+      {
+        answerVector.Add(0);
+        temp.Add(0);
+      }
+      for (int i = 1; i < matrix.GetLength(0); i++)
+      {
+        for (int j = 0; j < i; j++)
+        {
+          temp[i] += L[i, j] * yVector[j];
+        }
+        yVector.Add((freeCoefs[i] - temp[i]) / L[i, i]);
+        temp[i] = 0;
+      }
+
+      for (int i = 0; i < matrix.GetLength(0); i++)
+      {
+        temp[i] = 0;
+      }
+
+      answerVector[matrix.GetLength(0) - 1] = yVector[matrix.GetLength(0) - 1] / U[matrix.GetLength(0) - 1, matrix.GetLength(0) - 1];
+      for (int i = matrix.GetLength(0) - 2; i >= 0; i--)
+      {
+        for (int j = matrix.GetLength(0) - 1; j >= 0; j--)
+        {
+          temp[i] += U[i, j] * answerVector[j];
+        }
+        answerVector[i] = (yVector[i] - temp[i]) / U[i, i];
+        temp[i] = 0;
+      }
+      return answerVector;
+    }
+    private List<double> SimpleIterationsMethod(double[,] matrix, double[] freeCoefs, double[] startPrecision, double precision)
+    {
+      List<double> answerVector = new List<double>();
+      List<double> precisionVector = new List<double>();
+      List<double> beta = new List<double>();
+      double[,] alpha = new double[matrix.GetLength(0), matrix.GetLength(0)];
+      double sum;
+      int currentIteration = 0;
+      for (int i = 0; i < matrix.GetLength(0); i++)
+      {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+          alpha[i, j] = matrix[i, j] / matrix[i, i];
+        }
+        alpha[i, i] = 0;
+        beta.Add(freeCoefs[i] / matrix[i, i]);
+        answerVector.Add(startPrecision[i]);
+        precisionVector.Add(double.PositiveInfinity);
+      }
+
+      while (precisionVector.Max() > precision)
+      {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+          sum = 0;
+          if (currentIteration != 0)
+          {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+              sum += alpha[i, j] * answerVector[j];
+            }
+            precisionVector[i] = Math.Abs(answerVector[i] - startPrecision[i]);
+            startPrecision[i] = answerVector[i];
+          }
+          answerVector[i] = beta[i] - sum;
+        }
+        currentIteration++;
+      }
+      Console.WriteLine("Number of iterations for SIM: " + currentIteration);
+      return answerVector;
+    }
+    private List<double> SOR(double[,] matrix, double[] freeCoefs, double[] startPrecision, double precision, double w)
+    {
+      if (w <= 0 || w >= 2)
+      {
+        Console.WriteLine("Parameter w must be inside (0,2)");
+        Console.WriteLine("Your input: " + w);
+        return new List<double> { 0 };
+      }
+
+      List<double> answerVector = new List<double>();
+      List<double> precisionVector = new List<double>();
+      List<double> beta = new List<double>();
+      double[,] alpha = new double[matrix.GetLength(0), matrix.GetLength(0)];
+      double sumUpper;
+      double sumLower;
+      List<double> tempAnswer = new List<double>();
+      int currentIteration = 0;
+
+      for (int i = 0; i < matrix.GetLength(0); i++)
+      {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+          alpha[i, j] = matrix[i, j] / matrix[i, i];
+        }
+        alpha[i, i] = 0;
+        beta.Add(freeCoefs[i] / matrix[i, i]);
+        answerVector.Add(startPrecision[i]);
+        tempAnswer.Add(0);
+        precisionVector.Add(double.PositiveInfinity);
+      }
+
+      while (precisionVector.Max() > precision)
+      {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+          sumLower = 0;
+          sumUpper = 0;
+          if (currentIteration != 0)
+          {
+            for (int j = i + 1; j < matrix.GetLength(0); j++)
+            {
+              sumUpper += alpha[i, j] * answerVector[j];
+            }
+            tempAnswer[i] = beta[i] - sumUpper;
+            for (int j = 0; j < i; j++)
+            {
+              sumLower += alpha[i, j] * tempAnswer[j];
+            }
+            tempAnswer[i] -= sumLower;
+            precisionVector[i] = Math.Abs(tempAnswer[i] - startPrecision[i]);
+            startPrecision[i] = answerVector[i];
+          }
+          answerVector[i] = (1 - w) * answerVector[i] + w * tempAnswer[i];
+        }
+        currentIteration++;
+      }
+      Console.WriteLine("Number of iterations for SOR: " + currentIteration);
+      return answerVector;
+    }
+    public abstract Vector Solve(Matrix systemMatrix, Vector coefficients);
+  }
+}
