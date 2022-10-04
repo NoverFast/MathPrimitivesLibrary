@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathPrimitivesLibrary
+namespace MathPrimitivesLibrary.Statistics
 {
-  public class ExactSolvers
+  public class Statistics
   {
+
   }
 }
