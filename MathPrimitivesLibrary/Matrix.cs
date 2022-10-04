@@ -57,7 +57,9 @@ namespace MathPrimitivesLibrary
 
     public Matrix Inverse()
     {
-      double determinant = Data[0, 0] * Data[1, 1] - Data[0, 1] * Data[1, 0];
+      double determinant = Determinant();
+      Matrix inversedMatrix = new Matrix(this);
+      Matrix identityMatrix = Helper.IdentityMatrix(this.Rows);
       return new Matrix(2, 2, new double[,]
       {
         { Data[1, 1] / determinant, -Data[1, 0] / determinant },
