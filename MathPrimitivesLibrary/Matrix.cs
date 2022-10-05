@@ -7,6 +7,7 @@ namespace MathPrimitivesLibrary
   {
     public int Rows { get; private set; }
     public int Coloumns { get; private set; }
+    public Matrix IdentityMatrix { get { return Helper.IdentityMatrix(this.Rows); } }
     public double[,] Data { get; private set; }
 
     public Matrix(int n)
