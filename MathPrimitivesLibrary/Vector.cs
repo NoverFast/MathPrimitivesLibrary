@@ -40,7 +40,7 @@ namespace MathPrimitivesLibrary
     {
       for (int i =0; i < Size; i++)
       {
-        Console.Write(" {0}", Data[i]);
+        Console.Write("\t{0}", Data[i]);
       }
     }
 

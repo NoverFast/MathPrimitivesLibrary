@@ -76,7 +76,7 @@ namespace MathPrimitivesLibrary
       {
         for (int j = 0; j < Coloumns; j++)
         {
-          Console.Write(" {0}", Data[i, j]);
+          Console.Write("\t{0}", Data[i, j]);
         }
         Console.WriteLine();
       }
