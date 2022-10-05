@@ -17,7 +17,7 @@ namespace MathPrimitivesLibrary
     }
 
     public int Size { get; private set; }
-    public double Length { get { return DotProduct(this); } }
+    public double Magnitude { get { return DotProduct(this); } }
 
     public Vector(int n)
     {
@@ -34,7 +34,7 @@ namespace MathPrimitivesLibrary
     {
       if (data.Length != n)
       {
-        throw new Exception("Provided data size is not the same as vector size!");
+        throw new ArgumentException("Provided data size is not the same as vector size!");
       }
       this.Data = data;
       Size = n;
@@ -58,7 +58,7 @@ namespace MathPrimitivesLibrary
     {
       if (this.Size != v.Size)
       {
-        throw new Exception("Vector Sizes are different!");
+        throw new ArgumentException("Vector sizes are different!");
       }
       double sum = 0;
       for (int i = 0; i < this.Size; i++)
@@ -68,10 +68,18 @@ namespace MathPrimitivesLibrary
       return sum;
     }
 
-    /*public Vector CrossProduct(Vector v1, Vector v2)
+    public Vector CrossProduct(Vector v1, Vector v2)
     {
-      return new Vector( ;
-    }*/
+      if (v1.Size != v2.Size && v1.Size != 2 && v2.Size != 2)
+      {
+        throw new ArgumentException("Both vectors must contain three elements!");
+      }
+      return new Vector(new double[] {
+        v1[1] * v2[2] - v1[2] * v2[1],
+        v1[0] * v2[2] - v1[2] * v1[0],
+        v1[0] * v2[1] - v1[1] * v2[0] 
+      });
+    }
 
     public double[] ToArray()
     {
@@ -83,24 +91,26 @@ namespace MathPrimitivesLibrary
       return newArray;
     }
 
-    public double this[int i]
-    {
-      get { return Data[i]; }
-      set { Data[i] = value; }
-    }
-
     public void CopyTo(Vector m)
     {
       Data.CopyTo(m.Data, 0);
       Size = m.Size;
     }
 
+    #region Indexators
+    public double this[int i]
+    {
+      get { return Data[i]; }
+      set { Data[i] = value; }
+    }
+    #endregion
 
+    #region Operators
     public static Vector operator +(Vector v1, Vector v2)
     {
       if (v1.Size != v2.Size)
       {
-        throw new Exception("Vector Sizes are different!");
+        throw new ArgumentException("Vector Sizes are different!");
       }
       Vector vector = new Vector(v1.Size, new double[v1.Size]);
       for (int i =0; i < v1.Size; i++)
@@ -143,5 +153,6 @@ namespace MathPrimitivesLibrary
       }
       return vector;
     }
+    #endregion
   }
 }
