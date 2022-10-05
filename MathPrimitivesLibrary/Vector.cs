@@ -17,7 +17,7 @@ namespace MathPrimitivesLibrary
     }
 
     public int Size { get; private set; }
-    public double Length { get { return DotProduct(this); } }
+    public double Magnitude { get { return DotProduct(this); } }
 
     public Vector(int n)
     {

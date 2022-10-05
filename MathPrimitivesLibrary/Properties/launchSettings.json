@@ -7,6 +7,11 @@
     "MPL_Работа": {
       "commandName": "Executable",
       "executablePath": "C:\\Users\\vladislav.afletunov\\Универ\\Optimization-Methods\\OptimizationMethods\\bin\\Debug\\OptimizationMethods.exe"
+    },
+    "MPL_МатСтат_Работа": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\vladislav.afletunov\\Универ\\MathStatistics\\MathStatistics\\bin\\Debug\\MathStatistics.exe",
+      "workingDirectory": "C:\\Users\\vladislav.afletunov\\Универ\\MathStatistics\\MathStatistics"
     }
   }
 }
