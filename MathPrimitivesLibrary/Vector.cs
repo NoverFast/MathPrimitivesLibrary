@@ -17,7 +17,7 @@ namespace MathPrimitivesLibrary
     }
 
     public int Size { get; private set; }
-    public double Magnitude { get { return DotProduct(this); } }
+    public double Length { get { return DotProduct(this); } }
 
     public Vector(int n)
     {
@@ -34,7 +34,7 @@ namespace MathPrimitivesLibrary
     {
       if (data.Length != n)
       {
-        throw new ArgumentException("Provided data size is not the same as vector size!");
+        throw new Exception("Provided data size is not the same as vector size!");
       }
       this.Data = data;
       Size = n;
@@ -58,7 +58,7 @@ namespace MathPrimitivesLibrary
     {
       if (this.Size != v.Size)
       {
-        throw new ArgumentException("Vector sizes are different!");
+        throw new Exception("Vector Sizes are different!");
       }
       double sum = 0;
       for (int i = 0; i < this.Size; i++)
@@ -68,18 +68,10 @@ namespace MathPrimitivesLibrary
       return sum;
     }
 
-    public Vector CrossProduct(Vector v1, Vector v2)
+    /*public Vector CrossProduct(Vector v1, Vector v2)
     {
-      if (v1.Size != v2.Size && v1.Size != 2 && v2.Size != 2)
-      {
-        throw new ArgumentException("Both vectors must contain three elements!");
-      }
-      return new Vector(new double[] {
-        v1[1] * v2[2] - v1[2] * v2[1],
-        v1[0] * v2[2] - v1[2] * v1[0],
-        v1[0] * v2[1] - v1[1] * v2[0] 
-      });
-    }
+      return new Vector( ;
+    }*/
 
     public double[] ToArray()
     {
@@ -90,7 +82,6 @@ namespace MathPrimitivesLibrary
       }
       return newArray;
     }
-
     public void CopyTo(Vector m)
     {
       Data.CopyTo(m.Data, 0);
@@ -106,11 +97,12 @@ namespace MathPrimitivesLibrary
     #endregion
 
     #region Operators
+
     public static Vector operator +(Vector v1, Vector v2)
     {
       if (v1.Size != v2.Size)
       {
-        throw new ArgumentException("Vector Sizes are different!");
+        throw new Exception("Vector Sizes are different!");
       }
       Vector vector = new Vector(v1.Size, new double[v1.Size]);
       for (int i =0; i < v1.Size; i++)

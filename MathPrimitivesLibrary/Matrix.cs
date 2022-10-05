@@ -31,7 +31,7 @@ namespace MathPrimitivesLibrary
       Coloumns = coloumns;
       if (data.GetLength(0) != Rows && data.GetLength(1) != coloumns)
       {
-        throw new ArgumentException("Data size is not the same as matrix size!");
+        throw new Exception("Data size is not the same as matrix size!");
       }
       Data = (double[,])data.Clone();
     }
@@ -59,7 +59,7 @@ namespace MathPrimitivesLibrary
     {
       double determinant = Determinant();
       Matrix inversedMatrix = new Matrix(this);
-      Matrix identityMatrix = Helper.IdentityMatrix(inversedMatrix.Rows);
+      Matrix identityMatrix = Helper.IdentityMatrix(this.Rows);
       return new Matrix(2, 2, new double[,]
       {
         { Data[1, 1] / determinant, -Data[1, 0] / determinant },
@@ -122,35 +122,6 @@ namespace MathPrimitivesLibrary
       Rows = m.Rows;
     }
 
-    public double[,] To2DArray()
-    {
-      double[,] newArray = new double[this.Rows, this.Coloumns];
-      {
-        for (int i = 0; i < this.Rows; i++)
-        {
-          for (int j = 0; j < this.Coloumns; j++)
-          {
-            newArray[i, j] = this[i, j];
-          }
-        }
-      }
-      return newArray;
-    }
-
-    public double[] ToArray()
-    {
-      double[] newArray = new double[this.Rows * this.Coloumns];
-      for (int i = 0; i < this.Rows; i++)
-      {
-        for (int j = 0; j < this.Coloumns; j++)
-        {
-          newArray[i * j] = this[i, j];
-        }
-      }
-      return newArray;
-    }
-
-    #region Indexators
     public Vector this[int i]
     {
       get
@@ -170,14 +141,40 @@ namespace MathPrimitivesLibrary
         }
       }
     }
+
+    public double[,] To2DArray()
+    {
+      double[,] newArray = new double[this.Rows, this.Coloumns];
+      {
+        for (int i =0; i < this.Rows;i++)
+        {
+          for (int j=0; j < this.Coloumns;j++)
+          {
+            newArray[i, j] = this[i, j];
+          }
+        }
+      }
+      return newArray;
+    }
+
+    public double[] ToArray()
+    {
+      double[] newArray = new double[this.Rows * this.Coloumns];
+      for (int i =0; i < this.Rows; i++)
+      {
+        for (int j = 0; j < this.Coloumns; j++)
+        {
+          newArray[i*j] = this[i, j];
+        }
+      }
+      return newArray;
+    }
+
     public double this[int i, int j]
     {
       get { return Data[i, j]; }
       set { Data[i, j] = value; }
     }
-    #endregion
-
-    #region Operators
     public static Matrix operator +(Matrix a, Matrix b)
     {
       if (a.Coloumns != b.Coloumns || b.Rows != a.Rows)
@@ -291,6 +288,5 @@ namespace MathPrimitivesLibrary
       }
       return m;
     }
-    #endregion
   }
 }
