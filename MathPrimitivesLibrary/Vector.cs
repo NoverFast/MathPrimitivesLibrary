@@ -6,16 +6,6 @@ namespace MathPrimitivesLibrary
   {
     public double[] Data { get; private set; }
 
-    public double[] GetData()
-    {
-      return Data;
-    }
-
-    public void SetData(double[] newData)
-    {
-      Data = newData;
-    }
-
     public int Size { get; private set; }
     public double Magnitude { get { return DotProduct(this); } }
 
@@ -46,7 +36,7 @@ namespace MathPrimitivesLibrary
       Size = v.Size;
     }
 
-    public void ShowVector()
+    public void Show()
     {
       for (int i =0; i < Size; i++)
       {

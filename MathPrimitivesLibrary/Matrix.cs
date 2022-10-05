@@ -46,7 +46,10 @@ namespace MathPrimitivesLibrary
       Data = new double[Rows, Coloumns];
       for (int i = 0; i < Rows; i++)
       {
-        this[i] = data[i];
+        for (int j =0; j < Coloumns; j++)
+        {
+          this[i, j] = data[i][j];
+        }
       }
     }
     public Matrix(int rows, int coloumns, double[,] data)
@@ -195,20 +198,20 @@ namespace MathPrimitivesLibrary
       set { Data[i, j] = value; }
     }
 
-    public double[] this[int i]
+    public Vector this[int i]
     {
       get
       {
         Vector v = new Vector(this.Coloumns);
         for (int k = 0; k < this.Coloumns; k++)
         {
-          v[i] = this[i, k];
+          v[k] = this[i, k];
         }
-        return v.ToArray();
+        return v;
       }
       set
       {
-        for (int k = 0; k < value.Length; k++)
+        for (int k = 0; k < value.Size; k++)
         {
           Data[i, k] = value[k];
         }
