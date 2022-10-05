@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MathPrimitivesLibrary
 {
@@ -24,6 +25,29 @@ namespace MathPrimitivesLibrary
       Rows = data.GetLength(0);
       Coloumns = data.GetLength(1);
       Data = (double[,])data.Clone();
+    }
+    public Matrix(double[][] data)
+    {
+      Rows = data.GetLength(0);
+      Coloumns = data.GetLength(1);
+      Data = new double[Rows, Coloumns];
+      for (int i = 0; i < Rows; i++)
+      {
+        for (int j = 0; j < Coloumns; j++)
+        {
+          this[i, j] = data[i][j];
+        }
+      }
+    }
+    public Matrix(List<double[]> data)
+    {
+      Rows = data.Count;
+      Coloumns = data[0].Length;
+      Data = new double[Rows, Coloumns];
+      for (int i = 0; i < Rows; i++)
+      {
+        this[i] = data[i];
+      }
     }
     public Matrix(int rows, int coloumns, double[,] data)
     {
@@ -122,6 +146,19 @@ namespace MathPrimitivesLibrary
       Rows = m.Rows;
     }
 
+    public double[][] ToJaggedArray()
+    {
+      double[][] jaggedArray = new double[Rows][];
+      for (int i =0; i < Rows; i++)
+      {
+        for (int j = 0; j < Coloumns; j++)
+        {
+          jaggedArray[i][j] = this[i, j];
+        }
+      }
+      return jaggedArray;
+    }
+
     public double[,] To2DArray()
     {
       double[,] newArray = new double[this.Rows, this.Coloumns];
@@ -158,7 +195,7 @@ namespace MathPrimitivesLibrary
       set { Data[i, j] = value; }
     }
 
-    public Vector this[int i]
+    public double[] this[int i]
     {
       get
       {
@@ -167,11 +204,11 @@ namespace MathPrimitivesLibrary
         {
           v[i] = this[i, k];
         }
-        return v;
+        return v.ToArray();
       }
       set
       {
-        for (int k = 0; k < value.Size; k++)
+        for (int k = 0; k < value.Length; k++)
         {
           Data[i, k] = value[k];
         }
