@@ -122,26 +122,6 @@ namespace MathPrimitivesLibrary
       Rows = m.Rows;
     }
 
-    public Vector this[int i]
-    {
-      get
-      {
-        Vector v = new Vector(this.Coloumns);
-        for (int k = 0; k < this.Coloumns; k++)
-        {
-          v[i] = this[i, k];
-        }
-        return v;
-      }
-      set
-      {
-        for (int k =0; k < value.Size; k++)
-        {
-          Data[i, k] = value[k];
-        }
-      }
-    }
-
     public double[,] To2DArray()
     {
       double[,] newArray = new double[this.Rows, this.Coloumns];
@@ -170,11 +150,36 @@ namespace MathPrimitivesLibrary
       return newArray;
     }
 
+    #region Indexators
+
     public double this[int i, int j]
     {
       get { return Data[i, j]; }
       set { Data[i, j] = value; }
     }
+
+    public Vector this[int i]
+    {
+      get
+      {
+        Vector v = new Vector(this.Coloumns);
+        for (int k = 0; k < this.Coloumns; k++)
+        {
+          v[i] = this[i, k];
+        }
+        return v;
+      }
+      set
+      {
+        for (int k = 0; k < value.Size; k++)
+        {
+          Data[i, k] = value[k];
+        }
+      }
+    }
+    #endregion
+
+    #region Operators
     public static Matrix operator +(Matrix a, Matrix b)
     {
       if (a.Coloumns != b.Coloumns || b.Rows != a.Rows)
@@ -288,5 +293,6 @@ namespace MathPrimitivesLibrary
       }
       return m;
     }
+    #region
   }
 }
