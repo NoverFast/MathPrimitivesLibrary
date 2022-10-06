@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathPrimitivesLibrary.Solvers.ExactSolvers
 {
-  public class TridiagonalSolver : AbstractSolver
+  public class TridiagonalSolver
   {
     private enum ForwardSweepCoefsEnum
     {
