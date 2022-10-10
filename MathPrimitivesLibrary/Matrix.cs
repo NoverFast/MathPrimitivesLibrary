@@ -30,7 +30,7 @@ namespace MathPrimitivesLibrary
     public Matrix(double[][] data)
     {
       Rows = data.GetLength(0);
-      Coloumns = data.GetLength(1);
+      Coloumns = data[0].Length;
       Data = new double[Rows, Coloumns];
       for (int i = 0; i < Rows; i++)
       {
