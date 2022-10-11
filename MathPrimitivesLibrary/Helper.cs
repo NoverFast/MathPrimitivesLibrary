@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MathPrimitivesLibrary
 {
-  static class Helper
+  public static class Helper
   {
     public static int KroneckerSymbol(int i, int j) => i == j ? 1 : 0;
 
@@ -24,15 +24,15 @@ namespace MathPrimitivesLibrary
       }
       double determinant = m.Determinant();
       return new Matrix(3, 3, new double[,] { 
-        { new Matrix(new double[,] { { m.Data[1,1], m.Data[1, 2]}, { m.Data[2,1], m.Data[2,2]} }).Determinant() / determinant, 
-          -new Matrix(new double[,] { { m.Data[1, 0], m.Data[1, 2]}, { m.Data[2,0], m.Data[2,2]} }).Determinant() / determinant,
-           new Matrix(new double[,] { { m.Data[1, 0], m.Data[1, 1]}, { m.Data[2,0], m.Data[2,1]} }).Determinant() / determinant}, 
-        { - new Matrix(new double[,] { { m.Data[0,1], m.Data[0, 2]}, { m.Data[2,1], m.Data[2,2]} }).Determinant() / determinant,
-         new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 2]}, { m.Data[2,0], m.Data[2,2]} }).Determinant() / determinant,
-          - new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 1]}, { m.Data[2,0], m.Data[2,1]} }).Determinant() / determinant},
-        {  new Matrix(new double[,] { { m.Data[0,1], m.Data[0, 2]}, { m.Data[1,1], m.Data[1,2]} }).Determinant() / determinant,
-          -new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 2]}, { m.Data[1,0], m.Data[1,2]} }).Determinant() / determinant,
-           new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 1]}, { m.Data[1,0], m.Data[1,1]} }).Determinant() / determinant} 
+        {   new Matrix(new double[,] { { m.Data[1,1], m.Data[1, 2]}, { m.Data[2,1], m.Data[2,2]} }).Determinant() / determinant, 
+            -new Matrix(new double[,] { { m.Data[1, 0], m.Data[1, 2]}, { m.Data[2,0], m.Data[2,2]} }).Determinant() / determinant,
+            new Matrix(new double[,] { { m.Data[1, 0], m.Data[1, 1]}, { m.Data[2,0], m.Data[2,1]} }).Determinant() / determinant}, 
+        {   -new Matrix(new double[,] { { m.Data[0,1], m.Data[0, 2]}, { m.Data[2,1], m.Data[2,2]} }).Determinant() / determinant,
+            new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 2]}, { m.Data[2,0], m.Data[2,2]} }).Determinant() / determinant,
+            -new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 1]}, { m.Data[2,0], m.Data[2,1]} }).Determinant() / determinant},
+        {   new Matrix(new double[,] { { m.Data[0,1], m.Data[0, 2]}, { m.Data[1,1], m.Data[1,2]} }).Determinant() / determinant,
+            -new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 2]}, { m.Data[1,0], m.Data[1,2]} }).Determinant() / determinant,
+            new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 1]}, { m.Data[1,0], m.Data[1,1]} }).Determinant() / determinant} 
       });
     }
     public static Matrix IdentityMatrix(int size)
