@@ -3,10 +3,38 @@ using System.Collections.Generic;
 
 namespace MathPrimitivesLibrary
 {
-  static class Helper
+  public static class Helper
   {
     public static int KroneckerSymbol(int i, int j) => i == j ? 1 : 0;
 
+    public static Matrix Inverse2D(Matrix m)
+    {
+      double determinant = m.Determinant();
+      return new Matrix(2, 2, new double[,]
+      {
+        { m.Data[1, 1] / determinant, -m.Data[1, 0] / determinant },
+        { -m.Data[0, 1] / determinant, m.Data[1, 1] / determinant }
+      });
+    }
+    public static Matrix Inverse3D(Matrix m)
+    {
+      if (m.Rows != 3)
+      {
+        throw new Exception("Inversion operation of higher dimension matricies are not supported right now!");
+      }
+      double determinant = m.Determinant();
+      return new Matrix(3, 3, new double[,] { 
+        {   new Matrix(new double[,] { { m.Data[1,1], m.Data[1, 2]}, { m.Data[2,1], m.Data[2,2]} }).Determinant() / determinant, 
+            -new Matrix(new double[,] { { m.Data[1, 0], m.Data[1, 2]}, { m.Data[2,0], m.Data[2,2]} }).Determinant() / determinant,
+            new Matrix(new double[,] { { m.Data[1, 0], m.Data[1, 1]}, { m.Data[2,0], m.Data[2,1]} }).Determinant() / determinant}, 
+        {   -new Matrix(new double[,] { { m.Data[0,1], m.Data[0, 2]}, { m.Data[2,1], m.Data[2,2]} }).Determinant() / determinant,
+            new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 2]}, { m.Data[2,0], m.Data[2,2]} }).Determinant() / determinant,
+            -new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 1]}, { m.Data[2,0], m.Data[2,1]} }).Determinant() / determinant},
+        {   new Matrix(new double[,] { { m.Data[0,1], m.Data[0, 2]}, { m.Data[1,1], m.Data[1,2]} }).Determinant() / determinant,
+            -new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 2]}, { m.Data[1,0], m.Data[1,2]} }).Determinant() / determinant,
+            new Matrix(new double[,] { { m.Data[0,0], m.Data[0, 1]}, { m.Data[1,0], m.Data[1,1]} }).Determinant() / determinant} 
+      });
+    }
     public static Matrix IdentityMatrix(int size)
     {
       Matrix m = new Matrix(size);

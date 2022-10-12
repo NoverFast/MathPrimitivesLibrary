@@ -8,7 +8,7 @@ namespace MathPrimitivesLibrary.Solvers
 {
   public abstract class AbstractSolver
   {
-    protected abstract Vector Solve();
+    protected abstract Vector Solve(Matrix systemMatrix, Vector coefficients);
     private List<double> SimpleIterationsMethod(double[,] matrix, double[] freeCoefs, double[] startPrecision, double precision)
     {
       List<double> answerVector = new List<double>();
@@ -109,6 +109,5 @@ namespace MathPrimitivesLibrary.Solvers
       Console.WriteLine("Number of iterations for SOR: " + currentIteration);
       return answerVector;
     }
-    public abstract Vector Solve(Matrix systemMatrix, Vector coefficients);
   }
 }
