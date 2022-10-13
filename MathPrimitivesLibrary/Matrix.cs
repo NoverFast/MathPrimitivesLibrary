@@ -104,6 +104,7 @@ namespace MathPrimitivesLibrary
     public Matrix Inverse()
     {
       Matrix gaussM = this.Zip(Helper.IdentityMatrix(this.Rows));
+      gaussM.Show();
       gaussM.Triagonalize();
       // После этого цикла имеем дело с нижне-треугольной матрицей
       for (int i = gaussM.Rows; i > 0; i--)
@@ -161,15 +162,15 @@ namespace MathPrimitivesLibrary
     // Диагонализованные элементы не должны быть равны нулю!!!
     public Matrix Triagonalize()
     {
-      Matrix triangleMatrix = new Matrix(this.Rows, this.Coloumns, this.Data);
-      for (int i = 0; i < triangleMatrix.Rows - 1; i++)
+      Matrix triangleMatrix = new Matrix(this.Data);
+      for (int i = 0; i < triangleMatrix.Coloumns - 1; i++)
       {
-        for (int j = i + 1; j < triangleMatrix.Coloumns; j++)
+        for (int j = i + 1; j < triangleMatrix.Rows; j++)
         {
           double koef = triangleMatrix[j, i] / triangleMatrix[i, i];
-          for (int k = 0; k < triangleMatrix.Coloumns; k++)
+          for (int k = 0; k < triangleMatrix.Rows; k++)
           {
-            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef; 
+            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef;
           }
         }
       }
