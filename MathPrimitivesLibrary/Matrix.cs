@@ -83,17 +83,47 @@ namespace MathPrimitivesLibrary
       }
     }
 
-    public Matrix Inverse()
+    public Matrix Zip(Matrix m)
     {
-      double determinant = Determinant();
+      if (this.Rows != m.Rows || this.Coloumns != m.Coloumns)
+      {
+        throw new Exception("Both matricies must be of the same dimension!");
+      }
+      double[,] zippedData = new double[this.Rows, this.Coloumns + m.Coloumns];
+      for (int i =0; i < zippedData.GetLength(0); i++)
+      {
+        for (int j =0; j < zippedData.GetLength(1) / 2; j++)
+        {
+          zippedData[i, j] = this.Data[i, j];
+          zippedData[i, j + zippedData.GetLength(1) / 2] = m.Data[i, j];
+        }
+      }
+      return new Matrix(zippedData);
+    }
+
+    /*public Matrix Inverse()
+    {
       Matrix inversedMatrix = new Matrix(this);
       Matrix identityMatrix = Helper.IdentityMatrix(this.Rows);
+      Matrix srcAndIdentity = new Matrix(inversedMatrix.Rows, inversedMatrix.Coloumns + identityMatrix.Coloumns, nint)
+      // После этого цикла имеем дело с нижне-треугольной матрицей
+      for (int i = triangleMatrix.Rows; i > 0; i--)
+      {
+        for (int j = i - 1; j > 0; j--)
+        {
+          double koef = triangleMatrix[j, i] / triangleMatrix[i, i];
+          for (int k = triangleMatrix.Rows; k > 0; k--)
+          {
+            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef;
+          }
+        }
+      }
       return new Matrix(2, 2, new double[,]
       {
         { Data[1, 1] / determinant, -Data[1, 0] / determinant },
         { -Data[0, 1] / determinant, Data[1, 1] / determinant }
       });
-    }
+    } */
 
     public Matrix Transpose()
     {
@@ -136,7 +166,7 @@ namespace MathPrimitivesLibrary
           double koef = triangleMatrix[j, i] / triangleMatrix[i, i];
           for (int k = 0; k < triangleMatrix.Coloumns; k++)
           {
-            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef;
+            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef; 
           }
         }
       }
