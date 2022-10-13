@@ -101,29 +101,32 @@ namespace MathPrimitivesLibrary
       return new Matrix(zippedData);
     }
 
-    /*public Matrix Inverse()
+    public Matrix Inverse()
     {
-      Matrix inversedMatrix = new Matrix(this);
-      Matrix identityMatrix = Helper.IdentityMatrix(this.Rows);
-      Matrix srcAndIdentity = new Matrix(inversedMatrix.Rows, inversedMatrix.Coloumns + identityMatrix.Coloumns, nint)
+      Matrix gaussM = this.Zip(Helper.IdentityMatrix(this.Rows));
+      gaussM.Triagonalize();
       // После этого цикла имеем дело с нижне-треугольной матрицей
-      for (int i = triangleMatrix.Rows; i > 0; i--)
+      for (int i = gaussM.Rows; i > 0; i--)
       {
         for (int j = i - 1; j > 0; j--)
         {
-          double koef = triangleMatrix[j, i] / triangleMatrix[i, i];
-          for (int k = triangleMatrix.Rows; k > 0; k--)
+          double koef = gaussM[j, i] / gaussM[i, i];
+          for (int k = gaussM.Rows; k > 0; k--)
           {
-            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef;
+            gaussM[j, k] -= gaussM[i, k] * koef;
           }
         }
       }
-      return new Matrix(2, 2, new double[,]
+      double[,] gaussData = new double[this.Rows, this.Coloumns];
+      for (int i = 0; i < this.Rows;i++)
       {
-        { Data[1, 1] / determinant, -Data[1, 0] / determinant },
-        { -Data[0, 1] / determinant, Data[1, 1] / determinant }
-      });
-    } */
+        for (int j = 0; j < this.Coloumns; j++)
+        {
+          gaussData[i, j] = gaussM[i, j + this.Coloumns];
+        }
+      }
+      return new Matrix(this.Rows, this.Coloumns, gaussData);
+    } 
 
     public Matrix Transpose()
     {
