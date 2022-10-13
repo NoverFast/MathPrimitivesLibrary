@@ -135,6 +135,25 @@ namespace MathPrimitivesLibrary
       }
       return vector;
     }
+
+    public static Vector operator /(double scalar, Vector v)
+    {
+      Vector vector = new Vector(v.Size, new double[v.Size]);
+      for (int i = 0; i < v.Size; i++)
+      {
+        vector[i] /= scalar;
+      }
+      return vector;
+    }
+    public static Vector operator /(Vector v, double scalar)
+    {
+      Vector vector = new Vector(v.Size, new double[v.Size]); ;
+      for (int i = 0; i < v.Size; i++)
+      {
+        vector[i] /= scalar;
+      }
+      return vector;
+    }
     #endregion
   }
 }

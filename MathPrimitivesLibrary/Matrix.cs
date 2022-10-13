@@ -167,10 +167,10 @@ namespace MathPrimitivesLibrary
       {
         for (int j = i + 1; j < triangleMatrix.Rows; j++)
         {
-          double koef = triangleMatrix[j, i] / triangleMatrix[i, i];
+          double koef = triangleMatrix[j] / triangleMatrix[i, i];
           for (int k = 0; k < triangleMatrix.Rows; k++)
           {
-            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef;
+            triangleMatrix[j] -= triangleMatrix[i] * koef;
           }
         }
       }
