@@ -103,30 +103,57 @@ namespace MathPrimitivesLibrary
 
     public Matrix Inverse()
     {
-      Matrix gaussM = this.Zip(Helper.IdentityMatrix(this.Rows));
-      gaussM.Show();
-      gaussM.Triagonalize();
-      // После этого цикла имеем дело с нижне-треугольной матрицей
-      for (int i = gaussM.Rows; i > 0; i--)
+      Matrix identity = new Matrix(this.IdentityMatrix);
+      Matrix inversedMatrix = new Matrix(this);
+      for (int i = 0; i < inversedMatrix.Coloumns - 1; i++)
       {
-        for (int j = i - 1; j > 0; j--)
+        for (int j = i + 1; j < inversedMatrix.Rows; j++)
         {
-          double koef = gaussM[j, i] / gaussM[i, i];
-          for (int k = gaussM.Rows; k > 0; k--)
-          {
-            gaussM[j, k] -= gaussM[i, k] * koef;
+          double koef = inversedMatrix[j, i] / inversedMatrix[i, i];
+          for (int k = 0; k < inversedMatrix.Rows; k++)
+          { 
+            inversedMatrix[j, k] -= inversedMatrix[i, k] * koef;
+            identity[j, k] -= identity[i, k] * koef;
+            inversedMatrix.Show();
+            Console.WriteLine();
+            identity.Show();
           }
         }
       }
-      double[,] gaussData = new double[this.Rows, this.Coloumns];
-      for (int i = 0; i < this.Rows;i++)
+      Console.WriteLine("After forward sweep");
+      for (int i = 0; i < inversedMatrix.Rows; i++)
       {
-        for (int j = 0; j < this.Coloumns; j++)
+        double koef = inversedMatrix[i, i];
+        for (int j = 0; j < inversedMatrix.Coloumns; j++)
         {
-          gaussData[i, j] = gaussM[i, j + this.Coloumns];
+          identity[i, j] /= koef;
+          inversedMatrix[i, j] /= koef;
+          inversedMatrix.Show();
+          Console.WriteLine();
+          identity.Show();
         }
       }
-      return new Matrix(this.Rows, this.Coloumns, gaussData);
+      Console.WriteLine("After diagonal");
+      // После этого цикла имеем дело с нижне-треугольной матрицей
+      for (int i = inversedMatrix.Rows-1; i > 0; i--)
+      {
+        for (int j = i - 1; j >= 0; j--)
+        {
+          double koef = inversedMatrix[j, i] / inversedMatrix[i, i];
+          for (int k = inversedMatrix.Coloumns - 1; k >= 0; k--)
+          {
+            inversedMatrix[j, k] -= inversedMatrix[i, k] * koef;
+            identity[j, k] -= identity[i, k] * koef;
+            inversedMatrix.Show();
+            Console.WriteLine();
+            identity.Show();
+          }
+        }
+      }
+      Console.WriteLine("After backward sweep");
+      inversedMatrix.Show();
+      identity.Show();
+      return identity;
     } 
 
     public Matrix Transpose()
@@ -167,10 +194,10 @@ namespace MathPrimitivesLibrary
       {
         for (int j = i + 1; j < triangleMatrix.Rows; j++)
         {
-          double koef = triangleMatrix[j] / triangleMatrix[i, i];
-          for (int k = 0; k < triangleMatrix.Rows; k++)
+          double koef = triangleMatrix[j, i] / triangleMatrix[i, i];
+          for (int k = 0; k < triangleMatrix.Rows - 1; k++)
           {
-            triangleMatrix[j] -= triangleMatrix[i] * koef;
+            triangleMatrix[j, k] -= triangleMatrix[i, k] * koef;
           }
         }
       }
