@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MathPrimitivesLibrary
 {
-  public static class Helper
+  public static class MatrixHelper
   {
     public static int KroneckerSymbol(int i, int j) => i == j ? 1 : 0;
 

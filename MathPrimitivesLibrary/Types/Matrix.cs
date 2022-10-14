@@ -7,7 +7,7 @@ namespace MathPrimitivesLibrary
   {
     public int Rows { get; private set; }
     public int Coloumns { get; private set; }
-    public Matrix IdentityMatrix { get { return Helper.IdentityMatrix(this.Rows); } }
+    public Matrix IdentityMatrix { get { return MatrixHelper.IdentityMatrix(this.Rows); } }
     public double[,] Data { get; private set; }
 
     public Matrix(int n)
@@ -48,6 +48,19 @@ namespace MathPrimitivesLibrary
       for (int i = 0; i < Rows; i++)
       {
         for (int j =0; j < Coloumns; j++)
+        {
+          this[i, j] = data[i][j];
+        }
+      }
+    }
+    public Matrix(List<List<double>> data)
+    {
+      Rows = data.Count;
+      Coloumns = data[0].Count;
+      Data = new double[Rows, Coloumns];
+      for (int i = 0; i < Rows; i++)
+      {
+        for (int j = 0; j < Coloumns; j++)
         {
           this[i, j] = data[i][j];
         }
@@ -177,7 +190,7 @@ namespace MathPrimitivesLibrary
       {
         for (int j =0; j < m.Coloumns;j++)
         {
-          if (Helper.KroneckerSymbol(i, j) == 1)
+          if (MatrixHelper.KroneckerSymbol(i, j) == 1)
           {
             determinant *= m[i, j];
           }
@@ -282,11 +295,33 @@ namespace MathPrimitivesLibrary
     #endregion
 
     #region Operators
+    public static Matrix operator +(Matrix a, double scalar)
+    {
+      for (int i = 0; i < a.Rows; i++)
+      {
+        for (int j = 0; j < a.Coloumns; j++)
+        {
+          a.Data[i, j] += scalar;
+        }
+      }
+      return a;
+    }
+    public static Matrix operator -(Matrix a, double scalar)
+    {
+      for (int i = 0; i < a.Rows; i++)
+      {
+        for (int j = 0; j < a.Coloumns; j++)
+        {
+          a.Data[i, j] -= scalar;
+        }
+      }
+      return a;
+    }
     public static Matrix operator +(Matrix a, Matrix b)
     {
       if (a.Coloumns != b.Coloumns || b.Rows != a.Rows)
       {
-        return null;
+        throw new Exception("error");
       }
       for (int i = 0; i < a.Rows; i++)
       {
@@ -302,7 +337,7 @@ namespace MathPrimitivesLibrary
     {
       if (a.Coloumns != b.Coloumns || b.Rows != a.Rows)
       {
-        return null;
+        throw new Exception("error");
       }
       for (int i = 0; i < a.Rows; i++)
       {
@@ -338,7 +373,7 @@ namespace MathPrimitivesLibrary
     {
       if (m.Rows != vector.Size)
       {
-        return null;
+        throw new Exception("error");
       }
       double sum = 0;
       for (int i = 0; i < m.Rows; i++)
@@ -357,7 +392,7 @@ namespace MathPrimitivesLibrary
     {
       if (m.Rows != vector.Size)
       {
-        return null;
+        throw new Exception("error");
       }
       double sum = 0;
       for (int i = 0; i < m.Rows; i++)
@@ -391,6 +426,30 @@ namespace MathPrimitivesLibrary
         for (int j = 0; j < m.Coloumns; j++)
         {
           m.Data[i, j] *= scalar;
+        }
+      }
+      return m;
+    }
+
+    public static Matrix operator /(Matrix m, double scalar)
+    {
+      for (int i = 0; i < m.Rows; i++)
+      {
+        for (int j = 0; j < m.Coloumns; j++)
+        {
+          m.Data[i, j] /= scalar;
+        }
+      }
+      return m;
+    }
+
+    public static Matrix operator /(double scalar, Matrix m)
+    {
+      for (int i = 0; i < m.Rows; i++)
+      {
+        for (int j = 0; j < m.Coloumns; j++)
+        {
+          m.Data[i, j] /= scalar;
         }
       }
       return m;
