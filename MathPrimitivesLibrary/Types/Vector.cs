@@ -5,9 +5,8 @@ namespace MathPrimitivesLibrary
   public class Vector
   {
     public double[] Data { get; private set; }
-
     public int Size { get; private set; }
-    public double Magnitude { get { return DotProduct(this); } }
+    public double Magnitude { get { return Norm(this.Size); } }
 
     public Vector(int n)
     {
@@ -44,6 +43,16 @@ namespace MathPrimitivesLibrary
       }
     }
 
+    public double Norm(int order = 2)
+    {
+      double sum = 0;
+      for (int i =0; i < this.Size; i++)
+      {
+        sum += Math.Pow(this[i], order);
+      }
+      return Math.Sqrt(sum);
+    }
+
     public double DotProduct(Vector v)
     {
       if (this.Size != v.Size)
@@ -58,10 +67,14 @@ namespace MathPrimitivesLibrary
       return sum;
     }
 
-    /*public Vector CrossProduct(Vector v1, Vector v2)
+    public Vector CrossProduct(Vector v)
     {
-      return new Vector( ;
-    }*/
+      return new Vector(new double[] {
+      this.Data[1] * v.Data[2] - this.Data[2] * v.Data[1],
+      this.Data[0] * v.Data[2] - this.Data[2] * v.Data[0],
+      this.Data[0] * v.Data[1] - this.Data[1] * v.Data[0]
+      });
+    }
 
     public double[] ToArray()
     {
