@@ -127,13 +127,9 @@ namespace MathPrimitivesLibrary
           { 
             inversedMatrix[j, k] -= inversedMatrix[i, k] * koef;
             identity[j, k] -= identity[i, k] * koef;
-            inversedMatrix.Show();
-            Console.WriteLine();
-            identity.Show();
           }
         }
       }
-      Console.WriteLine("After forward sweep");
       for (int i = 0; i < inversedMatrix.Rows; i++)
       {
         double koef = inversedMatrix[i, i];
@@ -141,12 +137,8 @@ namespace MathPrimitivesLibrary
         {
           identity[i, j] /= koef;
           inversedMatrix[i, j] /= koef;
-          inversedMatrix.Show();
-          Console.WriteLine();
-          identity.Show();
         }
       }
-      Console.WriteLine("After diagonal");
       // После этого цикла имеем дело с нижне-треугольной матрицей
       for (int i = inversedMatrix.Rows-1; i > 0; i--)
       {
@@ -157,15 +149,9 @@ namespace MathPrimitivesLibrary
           {
             inversedMatrix[j, k] -= inversedMatrix[i, k] * koef;
             identity[j, k] -= identity[i, k] * koef;
-            inversedMatrix.Show();
-            Console.WriteLine();
-            identity.Show();
           }
         }
       }
-      Console.WriteLine("After backward sweep");
-      inversedMatrix.Show();
-      identity.Show();
       return identity;
     } 
 

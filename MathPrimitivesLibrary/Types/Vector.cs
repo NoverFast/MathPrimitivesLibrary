@@ -48,7 +48,7 @@ namespace MathPrimitivesLibrary
       double sum = 0;
       for (int i =0; i < this.Size; i++)
       {
-        sum += Math.Pow(this[i], order);
+        sum += Math.Pow(Math.Abs(this[i]), order);
       }
       return Math.Sqrt(sum);
     }
