@@ -127,13 +127,9 @@ namespace MathPrimitivesLibrary
           { 
             inversedMatrix[j, k] -= inversedMatrix[i, k] * koef;
             identity[j, k] -= identity[i, k] * koef;
-            inversedMatrix.Show();
-            Console.WriteLine();
-            identity.Show();
           }
         }
       }
-      Console.WriteLine("After forward sweep");
       for (int i = 0; i < inversedMatrix.Rows; i++)
       {
         double koef = inversedMatrix[i, i];
@@ -141,12 +137,8 @@ namespace MathPrimitivesLibrary
         {
           identity[i, j] /= koef;
           inversedMatrix[i, j] /= koef;
-          inversedMatrix.Show();
-          Console.WriteLine();
-          identity.Show();
         }
       }
-      Console.WriteLine("After diagonal");
       // После этого цикла имеем дело с нижне-треугольной матрицей
       for (int i = inversedMatrix.Rows-1; i > 0; i--)
       {
@@ -157,15 +149,9 @@ namespace MathPrimitivesLibrary
           {
             inversedMatrix[j, k] -= inversedMatrix[i, k] * koef;
             identity[j, k] -= identity[i, k] * koef;
-            inversedMatrix.Show();
-            Console.WriteLine();
-            identity.Show();
           }
         }
       }
-      Console.WriteLine("After backward sweep");
-      inversedMatrix.Show();
-      identity.Show();
       return identity;
     } 
 
@@ -297,28 +283,31 @@ namespace MathPrimitivesLibrary
     #region Operators
     public static Matrix operator +(Matrix a, double scalar)
     {
+      Matrix m = new Matrix(a);
       for (int i = 0; i < a.Rows; i++)
       {
         for (int j = 0; j < a.Coloumns; j++)
         {
-          a.Data[i, j] += scalar;
+          m.Data[i, j] += scalar;
         }
       }
-      return a;
+      return m;
     }
     public static Matrix operator -(Matrix a, double scalar)
     {
+      Matrix m = new Matrix(a);
       for (int i = 0; i < a.Rows; i++)
       {
         for (int j = 0; j < a.Coloumns; j++)
         {
-          a.Data[i, j] -= scalar;
+          m.Data[i, j] -= scalar;
         }
       }
-      return a;
+      return m;
     }
     public static Matrix operator +(Matrix a, Matrix b)
     {
+      Matrix m = new Matrix(a);
       if (a.Coloumns != b.Coloumns || b.Rows != a.Rows)
       {
         throw new Exception("error");
@@ -327,10 +316,10 @@ namespace MathPrimitivesLibrary
       {
         for (int j = 0; j < b.Coloumns; j++)
         {
-          a.Data[i, j] += b.Data[i, j];
+          m.Data[i, j] += b.Data[i, j];
         }
       }
-      return a;
+      return m;
     }
 
     public static Matrix operator -(Matrix a, Matrix b)
@@ -339,14 +328,15 @@ namespace MathPrimitivesLibrary
       {
         throw new Exception("error");
       }
+      Matrix m = new Matrix(a);
       for (int i = 0; i < a.Rows; i++)
       {
         for (int j = 0; j < b.Coloumns; j++)
         {
-          a.Data[i, j] -= b.Data[i, j];
+          m.Data[i, j] -= b.Data[i, j];
         }
       }
-      return a;
+      return m;
     }
 
     public static Matrix operator *(Matrix m1, Matrix m2)
@@ -375,14 +365,15 @@ namespace MathPrimitivesLibrary
       {
         throw new Exception("error");
       }
+      Vector v = new Vector(vector);
       double sum = 0;
       for (int i = 0; i < m.Rows; i++)
       {
         for (int j = 0; j < m.Coloumns; j++)
         {
-          sum += m.Data[i, j] * vector[j];
+          sum += m.Data[i, j] * v[j];
         }
-        vector[i] = sum;
+        v[i] = sum;
         sum = 0;
       }
       return vector;
@@ -394,14 +385,15 @@ namespace MathPrimitivesLibrary
       {
         throw new Exception("error");
       }
+      Vector v = new Vector(vector);
       double sum = 0;
       for (int i = 0; i < m.Rows; i++)
       {
         for (int j = 0; j < m.Coloumns; j++)
         {
-          sum += m.Data[i, j] * vector[j];
+          sum += m.Data[i, j] * v[j];
         }
-        vector[i] = sum;
+        v[i] = sum;
         sum = 0;
       }
       return vector;
@@ -409,50 +401,54 @@ namespace MathPrimitivesLibrary
 
     public static Matrix operator *(Matrix m, double scalar)
     {
+      Matrix matrix = new Matrix(m);
       for (int i = 0; i < m.Rows; i++)
       {
         for (int j = 0; j < m.Coloumns; j++)
         {
-          m.Data[i, j] *= scalar;
+          matrix.Data[i, j] *= scalar;
         }
       }
-      return m;
+      return matrix;
     }
 
     public static Matrix operator *(double scalar, Matrix m)
     {
+      Matrix matrix = new Matrix(m);
       for (int i = 0; i < m.Rows; i++)
       {
         for (int j = 0; j < m.Coloumns; j++)
         {
-          m.Data[i, j] *= scalar;
+          matrix.Data[i, j] *= scalar;
         }
       }
-      return m;
+      return matrix;
     }
 
     public static Matrix operator /(Matrix m, double scalar)
     {
+      Matrix matrix = new Matrix(m);
       for (int i = 0; i < m.Rows; i++)
       {
         for (int j = 0; j < m.Coloumns; j++)
         {
-          m.Data[i, j] /= scalar;
+          matrix.Data[i, j] /= scalar;
         }
       }
-      return m;
+      return matrix;
     }
 
     public static Matrix operator /(double scalar, Matrix m)
     {
+      Matrix matrix = new Matrix(m);
       for (int i = 0; i < m.Rows; i++)
       {
         for (int j = 0; j < m.Coloumns; j++)
         {
-          m.Data[i, j] /= scalar;
+          matrix.Data[i, j] /= scalar;
         }
       }
-      return m;
+      return matrix;
     }
     #endregion
   }
