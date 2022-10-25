@@ -361,7 +361,7 @@ namespace MathPrimitivesLibrary
 
     public static Vector operator *(Matrix m, Vector vector)
     {
-      if (m.Rows != vector.Size)
+      if (m.Coloumns != vector.Size)
       {
         throw new Exception("error");
       }
@@ -369,9 +369,9 @@ namespace MathPrimitivesLibrary
       double sum = 0;
       for (int i = 0; i < m.Rows; i++)
       {
-        for (int j = 0; j < m.Coloumns; j++)
+        for (int j = 0; j < vector.Size; j++)
         {
-          sum += m.Data[i, j] * v[j];
+          sum += m.Data[i, j] * vector[j];
         }
         v[i] = sum;
         sum = 0;
@@ -387,11 +387,11 @@ namespace MathPrimitivesLibrary
       }
       Vector v = new Vector(vector);
       double sum = 0;
-      for (int i = 0; i < m.Rows; i++)
+      for (int i = 0; i < m.Coloumns; i++)
       {
-        for (int j = 0; j < m.Coloumns; j++)
+        for (int j = 0; j < vector.Size; j++)
         {
-          sum += m.Data[i, j] * v[j];
+          sum += m.Data[j, i] * vector[j];
         }
         v[i] = sum;
         sum = 0;
