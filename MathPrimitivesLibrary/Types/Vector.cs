@@ -31,7 +31,7 @@ namespace MathPrimitivesLibrary
 
     public Vector(Vector v)
     {
-      Data.CopyTo(v.Data, 0);
+      Data = (double[])v.Data.Clone();
       Size = v.Size;
     }
 

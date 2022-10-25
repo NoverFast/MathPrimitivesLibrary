@@ -376,7 +376,7 @@ namespace MathPrimitivesLibrary
         v[i] = sum;
         sum = 0;
       }
-      return vector;
+      return v;
     }
 
     public static Vector operator *(Vector vector, Matrix m)
@@ -396,7 +396,7 @@ namespace MathPrimitivesLibrary
         v[i] = sum;
         sum = 0;
       }
-      return vector;
+      return v;
     }
 
     public static Matrix operator *(Matrix m, double scalar)
