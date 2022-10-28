@@ -8,16 +8,18 @@ namespace MathPrimitivesLibrary.Types.Meshes
     public double LeftEdge { get; set; }
     public double RightEdge { get; set; }
     public double StepLength { get; set; }
-    public double[] MeshValue { get; set; }
-    public double[] MeshSteps { get; set; }
+    public double[] MeshX { get; set; }
+    public double[] MeshY { get; set; }
+    public double[] FunctionData { get; set; }
     public Mesh(double leftEdge, double rightEdge, int numberOfSteps)
     {
       this.LeftEdge = leftEdge;
       this.RightEdge = rightEdge;
       this.NumberOfSteps = numberOfSteps;
       StepLength = (this.RightEdge - this.LeftEdge) / this.NumberOfSteps;
-      MeshValue = new double[this.NumberOfSteps + 1];
-      MeshSteps = new double[this.NumberOfSteps + 1];
+      MeshX = new double[this.NumberOfSteps + 1];
+      MeshY = new double[this.NumberOfSteps + 1];
+      FunctionData = new double[this.NumberOfSteps + 1];
 #if VERBOSE
         GetMeshProperties();
 #endif
@@ -33,15 +35,20 @@ namespace MathPrimitivesLibrary.Types.Meshes
 
     public void GetMeshData()
     {
-      Console.WriteLine("y: ");
-      foreach (double v in MeshValue)
-      {
-        Console.Write($"{v}\t");
-      }
       Console.WriteLine("x: ");
-      foreach (double s in MeshSteps)
+      foreach (double x in MeshX)
       {
-        Console.Write($"{s}\t");
+        Console.Write($"{x}\t");
+      }
+      Console.WriteLine("y: ");
+      foreach (double y in MeshY)
+      {
+        Console.Write($"{y}\t");
+      }
+      Console.WriteLine("f: ");
+      foreach (double f in FunctionData)
+      {
+        Console.Write($"{f}\t");
       }
     }
   }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace MathPrimitivesLibrary.Types.LinearODE
 {
-    internal class Adams
-    {
-    }
+  public class Adams : AbstractODESolver
+  {
+    public Adams(double leftEdge, double rightEdge, int numberOfSteps, double initialCondition, Func<double, double, double> function) 
+      : base(leftEdge, rightEdge, numberOfSteps, initialCondition, function)
+    { }
+  }
 }
