@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Types\LinearODE\" />
     <Folder Include="Types\Solvers\LE\" />
     <Folder Include="Types\Solvers\SLE\IterationalSolvers\" />
+    <Folder Include="Types\Quadratures\" />
   </ItemGroup>
 
 </Project>
