@@ -9,7 +9,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     protected double y0 { get; set; }
     protected double f { get; set; }
     protected Func<double, double, double> function { get; set; }
-    protected Mesh mesh { get; set; }
+    protected RegularMesh mesh { get; set; }
 
     /// <summary>
     /// При вызове конструктора происходит создание сетки и инициализация первого элемента сетки начальными данными.
@@ -19,13 +19,13 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     /// <param name="numberOfSteps"> Кол-во шагов на сетке </param>
     /// <param name="function"> Исходная задача </param>
     
-    public AbstractODESolver(double leftEdge, double rightEdge, int numberOfSteps, double initialCondition, Func<double, double, double> function)
+    public AbstractODESolver(RegularMesh mesh, double initialCondition, Func<double, double, double> function)
     {
-      mesh = new Mesh(leftEdge, rightEdge, numberOfSteps);
+      this.mesh = mesh;
       this.function = function;
-      x0 = mesh.MeshX[0] = leftEdge;
-      y0 = mesh.MeshY[0] = initialCondition;
-      f = mesh.FunctionData[0] = this.function(x0, y0);
+      x0 = this.mesh.MeshX[0] = this.mesh.LeftEdge;
+      y0 = this.mesh.MeshY[0] = initialCondition;
+      f = this.mesh.FunctionData[0] = this.function(x0, y0);
     }
 
     public virtual void Solve()

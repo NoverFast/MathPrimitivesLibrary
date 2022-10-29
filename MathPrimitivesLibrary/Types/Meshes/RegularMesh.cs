@@ -2,7 +2,7 @@
 
 namespace MathPrimitivesLibrary.Types.Meshes
 {
-  public class Mesh
+  public class RegularMesh
   {
     public int NumberOfSteps { get; set; }
     public double LeftEdge { get; set; }
@@ -11,7 +11,7 @@ namespace MathPrimitivesLibrary.Types.Meshes
     public double[] MeshX { get; set; }
     public double[] MeshY { get; set; }
     public double[] FunctionData { get; set; }
-    public Mesh(double leftEdge, double rightEdge, int numberOfSteps)
+    public RegularMesh(double leftEdge, double rightEdge, int numberOfSteps)
     {
       this.LeftEdge = leftEdge;
       this.RightEdge = rightEdge;
