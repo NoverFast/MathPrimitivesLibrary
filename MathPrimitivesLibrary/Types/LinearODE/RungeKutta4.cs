@@ -17,7 +17,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     }
     public override void Solve()
     {
-      for (int i = 1; i < mesh.NumberOfSteps; i++)
+      for (int i = 1; i < mesh.numberOfSteps; i++)
       {
         double k1 = function(mesh.MeshX[i - 1], mesh.MeshY[i - 1]);
         double k2 = function(mesh.MeshX[i - 1] + mesh.StepLength / 2, mesh.MeshY[i - 1] + mesh.StepLength / 2 * k1);

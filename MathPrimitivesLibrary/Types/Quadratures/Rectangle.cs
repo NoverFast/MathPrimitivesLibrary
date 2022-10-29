@@ -31,7 +31,7 @@ namespace MathPrimitivesLibrary.Types.Quadratures
     private void RightLeft()
     {
       double sum = 0;
-      for (int i = 1; i < mesh.NumberOfSteps; i++)
+      for (int i = 1; i < mesh.numberOfSteps; i++)
       {
         sum += function(mesh.MeshX[i]) * mesh.StepLength;
         mesh.MeshX[i] = mesh.StepLength * i;

@@ -2,34 +2,33 @@
 
 namespace MathPrimitivesLibrary.Types.Meshes
 {
-  public class RegularMesh
+  public class RegularMesh : AbstractMesh
   {
-    public int NumberOfSteps { get; set; }
-    public double LeftEdge { get; set; }
-    public double RightEdge { get; set; }
     public double StepLength { get; set; }
     public double[] MeshX { get; set; }
     public double[] MeshY { get; set; }
     public double[] FunctionData { get; set; }
-    public RegularMesh(double leftEdge, double rightEdge, int numberOfSteps)
+    public RegularMesh(double leftEdge, double rightEdge, int numberOfSteps) : base(leftEdge, rightEdge, numberOfSteps)
     {
-      this.LeftEdge = leftEdge;
-      this.RightEdge = rightEdge;
-      this.NumberOfSteps = numberOfSteps;
-      StepLength = (this.RightEdge - this.LeftEdge) / this.NumberOfSteps;
-      MeshX = new double[this.NumberOfSteps + 1];
-      MeshY = new double[this.NumberOfSteps + 1];
-      FunctionData = new double[this.NumberOfSteps + 1];
+      StepLength = (rightEdge - leftEdge) / numberOfSteps;
+      MeshX = new double[numberOfSteps + 1];
+      for (int i = 0; i <= numberOfSteps; i++)
+      {
+        MeshX[i] = StepLength * i;
+      }
+      MeshY = new double[numberOfSteps + 1];
+      FunctionData = new double[numberOfSteps + 1];
 #if VERBOSE
         GetMeshProperties();
+        GetMeshData();
 #endif
     }
 
     private void GetMeshProperties()
     {
-      Console.WriteLine($"Left Edge: {this.LeftEdge}");
-      Console.WriteLine($"Right Edge: {this.RightEdge}");
-      Console.WriteLine($"Number of Steps: {this.NumberOfSteps}");
+      Console.WriteLine($"Left Edge: {this.leftEdge}");
+      Console.WriteLine($"Right Edge: {this.rightEdge}");
+      Console.WriteLine($"Number of Steps: {this.numberOfSteps}");
       Console.WriteLine($"Step Length: {this.StepLength}");
     }
 
