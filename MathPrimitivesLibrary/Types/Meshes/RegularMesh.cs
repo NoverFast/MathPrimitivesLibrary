@@ -7,24 +7,35 @@ namespace MathPrimitivesLibrary.Types.Meshes
     public double StepLength { get; set; }
     public double[] MeshX { get; set; }
     public double[] MeshY { get; set; }
-    public double[] FunctionData { get; set; }
+    public double[] MeshQuadratureData { get; set; }
     public RegularMesh(double leftEdge, double rightEdge, int numberOfSteps) : base(leftEdge, rightEdge, numberOfSteps)
     {
       StepLength = (rightEdge - leftEdge) / numberOfSteps;
       MeshX = new double[numberOfSteps + 1];
       for (int i = 0; i <= numberOfSteps; i++)
       {
-        MeshX[i] = StepLength * i;
+        MeshX[i] = leftEdge + StepLength * i;
       }
       MeshY = new double[numberOfSteps + 1];
-      FunctionData = new double[numberOfSteps + 1];
+      MeshQuadratureData = new double[numberOfSteps + 1];
 #if VERBOSE
         GetMeshProperties();
         GetMeshData();
 #endif
     }
 
-    private void GetMeshProperties()
+    public override void ClearMesh()
+    {
+      StepLength = 0;
+      for (int i =0; i < MeshX.Length; i++)
+      {
+        MeshX[i] = 0;
+        MeshY[i] = 0;
+        MeshQuadratureData[i] = 0;
+      }
+      base.ClearMesh();
+    }
+    public void PrintMeshProperties()
     {
       Console.WriteLine($"Left Edge: {this.leftEdge}");
       Console.WriteLine($"Right Edge: {this.rightEdge}");
@@ -32,20 +43,20 @@ namespace MathPrimitivesLibrary.Types.Meshes
       Console.WriteLine($"Step Length: {this.StepLength}");
     }
 
-    public void GetMeshData()
+    public void PrintMeshData()
     {
       Console.WriteLine("x: ");
       foreach (double x in MeshX)
       {
         Console.Write($"{x}\t");
       }
-      Console.WriteLine("y: ");
+      Console.WriteLine("\ny: ");
       foreach (double y in MeshY)
       {
         Console.Write($"{y}\t");
       }
-      Console.WriteLine("f: ");
-      foreach (double f in FunctionData)
+      Console.WriteLine("\nf: ");
+      foreach (double f in MeshQuadratureData)
       {
         Console.Write($"{f}\t");
       }

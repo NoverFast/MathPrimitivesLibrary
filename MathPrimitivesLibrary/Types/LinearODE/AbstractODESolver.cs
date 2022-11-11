@@ -21,7 +21,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
       this.mesh = mesh;
       this.function = function;
       y0 = this.mesh.MeshY[0] = initialCondition;
-      f = this.mesh.FunctionData[0] = this.function(x0, y0);
+      f = this.mesh.MeshQuadratureData[0] = this.function(x0, y0);
     }
 
     public virtual void Solve()

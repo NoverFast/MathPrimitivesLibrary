@@ -3,7 +3,7 @@ using System;
 
 namespace MathPrimitivesLibrary.Types.Quadratures
 {
-  abstract class AbstractCompositionalQuadrature
+  public abstract class AbstractCompositionalQuadrature
   {
     protected RegularMesh mesh { get; set; }
     protected Func<double, double> function { get; set; }
@@ -12,7 +12,6 @@ namespace MathPrimitivesLibrary.Types.Quadratures
     {
       this.mesh = mesh;
       this.function = function;
-      this.mesh.MeshY[0] = function(mesh.MeshX[0]);
     }
     
     public virtual void Solve()
