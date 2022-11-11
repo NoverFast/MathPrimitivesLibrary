@@ -14,7 +14,9 @@ namespace MathPrimitivesLibrary.Types.Quadratures
       this.function = function;
     }
     
-    public virtual void Solve()
-    { }
+    public virtual double Calculate()
+    {
+      return 0;
+    }
   }
 }

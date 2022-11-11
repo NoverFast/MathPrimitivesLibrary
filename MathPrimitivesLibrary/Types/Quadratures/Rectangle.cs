@@ -15,7 +15,6 @@ namespace MathPrimitivesLibrary.Types.Quadratures
       double sum = 0;
       for (int i = 0; i < mesh.numberOfSteps; i++)
       {
-        mesh.MeshX[i] = mesh.leftEdge + mesh.StepLength * i;
         mesh.MeshY[i] = function(mesh.MeshX[i]);
         mesh.MeshQuadratureData[i] = mesh.MeshY[i];
         sum += mesh.MeshQuadratureData[i];
@@ -28,7 +27,6 @@ namespace MathPrimitivesLibrary.Types.Quadratures
       double sum = 0;
       for (int i = 1; i <= mesh.numberOfSteps; i++)
       {
-        mesh.MeshX[i] = mesh.leftEdge + mesh.StepLength * i;
         mesh.MeshY[i] = function(mesh.MeshX[i]);
         mesh.MeshQuadratureData[i] = mesh.MeshY[i];
         sum += mesh.MeshQuadratureData[i];
@@ -40,7 +38,6 @@ namespace MathPrimitivesLibrary.Types.Quadratures
       double sum = 0;
       for (int i = 1; i <= mesh.numberOfSteps; i++)
       {
-        mesh.MeshX[i] = mesh.leftEdge + mesh.StepLength * i;
         mesh.MeshY[i] = function(mesh.MeshX[i]);
         mesh.MeshQuadratureData[i] = function(mesh.MeshX[i] - mesh.StepLength / 2);
         sum += mesh.MeshQuadratureData[i];
