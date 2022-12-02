@@ -25,6 +25,8 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     }
 
     public virtual double Solve()
-    { }
+    {
+      return 0;
+    }
   }
 }
