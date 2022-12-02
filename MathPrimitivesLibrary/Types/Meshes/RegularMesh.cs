@@ -8,6 +8,12 @@ namespace MathPrimitivesLibrary.Types.Meshes
     public double[] MeshX { get; set; }
     public double[] MeshY { get; set; }
     public double[] MeshQuadratureData { get; set; }
+    /// <summary>
+    /// Конструктор регулярной сетки. Хранит в себе массивы размерности <paramref name="numberOfSteps"/> + 1
+    /// </summary>
+    /// <param name="leftEdge"></param>
+    /// <param name="rightEdge"></param>
+    /// <param name="numberOfSteps"></param>
     public RegularMesh(double leftEdge, double rightEdge, int numberOfSteps) : base(leftEdge, rightEdge, numberOfSteps)
     {
       StepLength = (rightEdge - leftEdge) / numberOfSteps;

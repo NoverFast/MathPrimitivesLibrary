@@ -15,7 +15,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
       : base(mesh, initialCondition, function)
     {
     }
-    public override void Solve()
+    public override double Solve()
     {
       for (int i = 1; i < mesh.numberOfSteps; i++)
       {
@@ -26,6 +26,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
         mesh.MeshX[i] += mesh.StepLength;
         mesh.MeshY[i] = mesh.StepLength / 6 * (k1 + 2 * k2 + 2 * k3 + k4);
       }
+      return 0;
     }
   }
 }

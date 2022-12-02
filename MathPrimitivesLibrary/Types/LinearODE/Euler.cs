@@ -14,7 +14,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     public Euler(RegularMesh mesh, double initialCondition, Func<double, double, double> function)
       : base(mesh, initialCondition, function)
     { }
-    public override void Solve()
+    public override double Solve()
     {
       for (int i = 1; i <= mesh.numberOfSteps; i++)
       {
@@ -24,6 +24,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
 #if VERBOSE
       mesh.GetMeshData();
 #endif
+      return 0;
     }
   }
 }
