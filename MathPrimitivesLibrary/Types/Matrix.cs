@@ -365,7 +365,7 @@ namespace MathPrimitivesLibrary
       {
         throw new Exception("error");
       }
-      Vector v = new Vector(vector);
+      Vector v = new Vector(m.Rows);
       double sum = 0;
       for (int i = 0; i < m.Rows; i++)
       {
@@ -385,7 +385,7 @@ namespace MathPrimitivesLibrary
       {
         throw new Exception("error");
       }
-      Vector v = new Vector(vector);
+      Vector v = new Vector(m.Coloumns);
       double sum = 0;
       for (int i = 0; i < m.Coloumns; i++)
       {
