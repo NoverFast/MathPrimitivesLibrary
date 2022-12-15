@@ -24,6 +24,6 @@ namespace MathPrimitivesLibrary.Types.LinearODE
       mesh.Grid[0] = y0;
     }
 
-    public abstract double Solve();
+    public abstract void Solve();
   }
 }

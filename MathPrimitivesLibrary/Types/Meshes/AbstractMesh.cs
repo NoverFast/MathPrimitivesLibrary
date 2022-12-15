@@ -19,7 +19,7 @@ namespace MathPrimitivesLibrary.Types.Meshes
     }
     public abstract void ClearMeshData();
 
-    public virtual void ShowMeshProperties()
+    public virtual void ShowMeshProperties(bool showGrid = false, int roundTo = -1)
     {
       Console.WriteLine($"Left Edge: {leftEdge}" +
         $"\nRight Edge: {rightEdge}" +

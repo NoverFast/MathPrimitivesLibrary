@@ -13,30 +13,30 @@ namespace MathPrimitivesLibrary.Types.Meshes
     /// <summary>
     /// Количество шагов по оси X
     /// </summary>
-    int NumberOfStepsX { get; set; }
+    public int NumberOfStepsX { get; set; }
     /// <summary>
     /// Количество шагов по оси Y
     /// </summary>
-    int NumberOfStepsY { get; set; }
+    public int NumberOfStepsY { get; set; }
 
     /// <summary>
     /// Длина шага по оси Х
     /// </summary>
-    double StepLengthX { get; set; }
+    public double StepLengthX { get; set; }
     /// <summary>
     /// Длина шага по оси Y
     /// </summary>
-    double StepLengthY { get; set; }
+    public double StepLengthY { get; set; }
     
     /// <summary>
     /// Матрица, куда записываются данные сетки.
     /// </summary>
-    Matrix Grid { get; set; }
+    public Matrix Grid { get; set; }
 
     /// <summary>
     /// Матрица, которая содержит в себе все числовые значения точек в сетке
     /// </summary>
-    Matrix GridPoints { get; set; }
+    public Matrix GridPoints { get; set; }
     #endregion
 
     #region Constructors
@@ -44,7 +44,9 @@ namespace MathPrimitivesLibrary.Types.Meshes
     {
       Grid = new Matrix(NumberOfStepsX, NumberOfStepsY);
       GridPoints = new Matrix(NumberOfStepsX, NumberOfStepsY);
-      StepLengthX = StepLengthY = (base.rightEdge - base.leftEdge) / NumberOfStepsX;
+      NumberOfStepsX = base.numberOfSteps;
+      NumberOfStepsY = base.numberOfSteps;
+      StepLengthX = StepLengthY = (base.rightEdge - base.leftEdge) / (base.numberOfSteps -1);
 
       FillGridPoints();
     }
@@ -53,26 +55,24 @@ namespace MathPrimitivesLibrary.Types.Meshes
       double leftTop, double rightTop, int numberOfStepsX, int numberOfStepsY) :
       base(leftBottom, rightBottom, numberOfStepsX)
     {
-      Grid = new Matrix(NumberOfStepsX, numberOfStepsY);
-      StepLengthX = (rightBottom - leftBottom) / numberOfStepsX;
-      StepLengthY = (leftTop - leftBottom) / numberOfStepsY;
+      Grid = new Matrix(numberOfStepsX, numberOfStepsY);
+      GridPoints = new Matrix(numberOfStepsX, numberOfStepsY);
+      NumberOfStepsX = numberOfStepsX;
+      NumberOfStepsY = numberOfStepsY;
+      StepLengthX = (rightBottom - leftBottom) / (numberOfStepsX - 1);
+      StepLengthY = (leftTop - leftBottom) / (numberOfStepsY - 1);
 
       FillGridPoints();
-#if DEBUG
-      {
-        ShowMeshProperties();
-      }
-#endif
     }
     #endregion
 
-    public void ShowMeshProperties(bool showGrid = false)
+    public override void ShowMeshProperties(bool showGrid = false, int roundTo = -1)
     {
       Console.WriteLine($"Number of steps by X: {NumberOfStepsX}\nNumber of steps by Y: {NumberOfStepsY}");
       Console.WriteLine($"Step Length by X: {StepLengthX}\nStep Length by Y: {StepLengthY}");
       if (showGrid)
       {
-        GridPoints.Show();
+        GridPoints.Show(roundTo);
       }
     }
 

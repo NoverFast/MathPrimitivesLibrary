@@ -7,20 +7,14 @@ namespace MathPrimitivesLibrary.Types.Meshes
     public double StepLength { get; set; }
     public Vector Grid { get; set; }
     public Vector GridPoints { get; set; }
-    /// <summary>
-    /// Конструктор регулярной сетки. Хранит в себе массивы размерности <paramref name="numberOfSteps"/> + 1
-    /// </summary>
-    /// <param name="leftEdge"></param>
-    /// <param name="rightEdge"></param>
-    /// <param name="numberOfSteps"></param>
+
     public RegularMesh1D(double leftEdge, double rightEdge, int numberOfSteps) : base(leftEdge, rightEdge, numberOfSteps)
     {
-      StepLength = (rightEdge - leftEdge) / numberOfSteps;
+      StepLength = (rightEdge - leftEdge) / (numberOfSteps - 1);
       Grid = new Vector(numberOfSteps);
       GridPoints = new Vector(numberOfSteps);
-#if DEBUG
-      ShowMeshProperties();
-#endif
+
+      FillGridPoints();
     }
 
     public void FillGridPoints()
@@ -31,15 +25,16 @@ namespace MathPrimitivesLibrary.Types.Meshes
       }
     }
 
-    public override void ShowMeshProperties()
+    public override void ShowMeshProperties(bool showGrid = false, int roundTo = -1)
     {
       Console.WriteLine($"Left Edge: {this.leftEdge}");
       Console.WriteLine($"Right Edge: {this.rightEdge}");
       Console.WriteLine($"Number of Steps: {this.numberOfSteps}");
       Console.WriteLine($"Step Length: {this.StepLength}");
-#if DEBUG
-      GridPoints.Show();
-#endif 
+      if (showGrid)
+      {
+        GridPoints.Show(roundTo);
+      }
     }
 
     public override void ClearMeshData()

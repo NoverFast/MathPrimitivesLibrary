@@ -83,18 +83,26 @@ namespace MathPrimitivesLibrary
       Coloumns = m.Coloumns;
       Data = (double[,])m.Data.Clone();
     }
-    
-    public void Show()
+
+    public void Show(int roundTo = -1)
     {
+      bool needRounding;
+      if (roundTo < 0) 
+      {
+        needRounding = false;
+      }
+      else
+      {
+        needRounding = true;
+      }
       for (int i =0; i < Rows; i++)
       {
         for (int j = 0; j < Coloumns; j++)
         {
-          Console.Write("\t{0}", Data[i, j]);
+          Console.Write("\t{0}", needRounding ? Math.Round(Data[i, j], roundTo) : Data[i, j]);
         }
         Console.WriteLine();
       }
-      Console.WriteLine();
     }
 
     /// <summary>
