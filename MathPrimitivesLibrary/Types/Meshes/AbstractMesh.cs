@@ -17,11 +17,13 @@ namespace MathPrimitivesLibrary.Types.Meshes
       this.rightEdge = rightEdge;
       this.numberOfSteps = numberOfSteps;
     }
-    public virtual void ClearMesh()
+    public abstract void ClearMeshData();
+
+    public virtual void ShowMeshProperties()
     {
-      leftEdge = 0;
-      rightEdge = 0;
-      numberOfSteps = 0;
+      Console.WriteLine($"Left Edge: {leftEdge}" +
+        $"\nRight Edge: {rightEdge}" +
+        $"\nNumber of steps: {numberOfSteps}");
     }
   }
 }

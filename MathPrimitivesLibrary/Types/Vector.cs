@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace MathPrimitivesLibrary
 {
   public class Vector
   {
+    #region Properties
     public double[] Data { get; private set; }
     public int Size { get; private set; }
     public double Magnitude { get { return Norm(this.Size); } }
+    #endregion
 
     public Vector(int n)
     {
@@ -35,12 +38,22 @@ namespace MathPrimitivesLibrary
       Size = v.Size;
     }
 
-    public void Show()
+    public void Show(int roundTo = -1)
     {
-      for (int i =0; i < Size; i++)
+      bool needRounding;
+      if (roundTo < 0)
       {
-        Console.Write("\t{0}", Data[i]);
+        needRounding = false;
       }
+      else
+      {
+        needRounding = true;
+      }
+      for (int i = 0; i < Size; i++)
+      {
+        Console.Write("\t{0}", needRounding ? Math.Round(Data[i], roundTo) : Data[i]);
+      }
+      Console.WriteLine();
     }
 
     public double Norm(int order = 2)
@@ -50,7 +63,7 @@ namespace MathPrimitivesLibrary
       {
         sum += Math.Pow(Math.Abs(this[i]), order);
       }
-      return Math.Sqrt(sum);
+      return Math.Pow(sum, 1.0 / order);
     }
 
     public double DotProduct(Vector v)
@@ -166,6 +179,25 @@ namespace MathPrimitivesLibrary
         vector[i] /= scalar;
       }
       return vector;
+    }
+
+    /// <summary>
+    /// Умножение вектора на вектор принимается в скалярном смысле.
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    public static double operator *(Vector v1, Vector v2)
+    {
+      if (v1.Size != v2.Size)
+      {
+        Console.WriteLine("Размеры векторов различаются");
+      }
+      double sum = 0;
+      for (int i =0; i < v1.Size; i++)
+      {
+        sum += v1[i] * v2[i];
+      }
+      return sum;
     }
     #endregion
   }

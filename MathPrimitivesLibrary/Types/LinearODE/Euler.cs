@@ -11,7 +11,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     /// <param name="mesh"> Сетка, на которой будет производится вычисление </param>
     /// <param name="initialCondition"> Начальное условие задачи Коши </param>
     /// <param name="function"> Функция, которую нужно посчитать</param>
-    public Euler(RegularMesh mesh, double initialCondition, Func<double, double, double> function)
+    public Euler(RegularMesh1D mesh, double initialCondition, Func<double, double, double> function)
       : base(mesh, initialCondition, function)
     { }
     public override double Solve()

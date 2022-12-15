@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
     <Folder Include="Types\Solvers\LE\" />
     <Folder Include="Types\Solvers\SLE\IterationalSolvers\" />
   </ItemGroup>

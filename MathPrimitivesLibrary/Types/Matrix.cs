@@ -94,24 +94,48 @@ namespace MathPrimitivesLibrary
         }
         Console.WriteLine();
       }
+      Console.WriteLine();
     }
 
+    /// <summary>
+    /// Сцепляет две матрицы одинакового размера в матрицу размера (n, n+n) или (n+n, n)
+    /// </summary>
+    /// <param name="m"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public Matrix Zip(Matrix m)
     {
       if (this.Rows != m.Rows || this.Coloumns != m.Coloumns)
       {
         throw new Exception("Both matricies must be of the same dimension!");
       }
-      double[,] zippedData = new double[this.Rows, this.Coloumns + m.Coloumns];
-      for (int i =0; i < zippedData.GetLength(0); i++)
+      if (this.Rows == m.Rows)
       {
-        for (int j =0; j < zippedData.GetLength(1) / 2; j++)
+        double[,] zippedData = new double[this.Rows, this.Coloumns + m.Coloumns];
+        for (int i = 0; i < zippedData.GetLength(0); i++)
         {
-          zippedData[i, j] = this.Data[i, j];
-          zippedData[i, j + zippedData.GetLength(1) / 2] = m.Data[i, j];
+          for (int j = 0; j < zippedData.GetLength(1) / 2; j++)
+          {
+            zippedData[i, j] = this.Data[i, j];
+            zippedData[i, j + zippedData.GetLength(1) / 2] = m.Data[i, j];
+          }
         }
+        return new Matrix(zippedData);
       }
-      return new Matrix(zippedData);
+      else if (this.Coloumns == m.Coloumns)
+      {
+        double[,] zippedData = new double[this.Rows + m.Rows, this.Coloumns];
+        for (int i = 0; i < zippedData.GetLength(1); i++)
+        {
+          for (int j = 0; j < zippedData.GetLength(0) / 2; j++)
+          {
+            zippedData[i, j] = this.Data[i, j];
+            zippedData[i, j + zippedData.GetLength(0) / 2] = m.Data[i, j];
+          }
+        }
+        return new Matrix(zippedData);
+      }
+      else throw new Exception("Something happened in Zip method");
     }
 
     public Matrix Inverse()

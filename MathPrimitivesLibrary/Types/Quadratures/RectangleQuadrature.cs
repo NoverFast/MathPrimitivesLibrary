@@ -6,7 +6,7 @@ namespace MathPrimitivesLibrary.Types.Quadratures
 {
   public class Rectangle : AbstractCompositionalQuadrature
   {
-    public Rectangle(RegularMesh mesh, Func<double, double> function) : base(mesh, function)
+    public Rectangle(RegularMesh1D mesh, Func<double, double> function) : base(mesh, function)
     {
     }
 

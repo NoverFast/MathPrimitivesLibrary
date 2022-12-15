@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MathPrimitivesLibrary.Types.Quadratures
 {
-  public class Trapezoid : AbstractCompositionalQuadrature
+  public class TrapezoidQuadrature : AbstractCompositionalQuadrature
   {
-    public Trapezoid(RegularMesh mesh, Func<double, double> function) : base(mesh, function)
+    public TrapezoidQuadrature(RegularMesh1D mesh, Func<double, double> function) : base(mesh, function)
     {
 
     }
@@ -21,10 +21,10 @@ namespace MathPrimitivesLibrary.Types.Quadratures
       double tmpSum = 0;
       for (int i = 1; i < mesh.numberOfSteps; i++)
       {
-        mesh.MeshY[i] = function(mesh.MeshX[i]);
-        tmpSum += function(mesh.MeshX[i]);
-        mesh.MeshQuadratureData[i] = tmp + tmpSum;
-        sum = mesh.MeshQuadratureData[i];
+        //mesh.MeshY[i] = function(mesh.MeshX[i]);
+        //tmpSum += function(mesh.MeshX[i]);
+        //mesh.MeshQuadratureData[i] = tmp + tmpSum;
+        //sum = mesh.MeshQuadratureData[i];
       }
       return sum * mesh.StepLength;
     }
