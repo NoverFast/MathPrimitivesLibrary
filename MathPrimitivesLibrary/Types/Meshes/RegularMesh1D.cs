@@ -25,7 +25,7 @@ namespace MathPrimitivesLibrary.Types.Meshes
 
     public void FillGridPoints()
     {
-      for (int i =0; i < GridPoints.Size; i++)
+      for (int i = 0; i < GridPoints.Size; i++)
       {
         GridPoints[i] = i * StepLength;
       }
@@ -37,6 +37,9 @@ namespace MathPrimitivesLibrary.Types.Meshes
       Console.WriteLine($"Right Edge: {this.rightEdge}");
       Console.WriteLine($"Number of Steps: {this.numberOfSteps}");
       Console.WriteLine($"Step Length: {this.StepLength}");
+#if DEBUG
+      GridPoints.Show();
+#endif 
     }
 
     public override void ClearMeshData()

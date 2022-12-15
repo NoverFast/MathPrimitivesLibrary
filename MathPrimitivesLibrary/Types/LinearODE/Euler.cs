@@ -16,15 +16,10 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     { }
     public override double Solve()
     {
-      for (int i = 1; i <= mesh.numberOfSteps; i++)
+      for (int i = 1; i < mesh.numberOfSteps; i++)
       {
-        mesh.MeshX[i] += mesh.StepLength;
-        mesh.MeshY[i] = mesh.MeshY[i - 1] + mesh.StepLength * function(mesh.MeshX[i - 1], mesh.MeshY[i - 1]);
+        mesh.Grid[i] = mesh.Grid[i - 1] + mesh.StepLength * function(mesh.Grid[i - 1], mesh.Grid[i - 1]);
       }
-#if VERBOSE
-      mesh.GetMeshData();
-#endif
-      return 0;
     }
   }
 }

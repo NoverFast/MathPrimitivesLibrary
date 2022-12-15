@@ -14,6 +14,7 @@ namespace MathPrimitivesLibrary.Types.Quadratures
 
     public override double Calculate()
     {
+      throw new NotImplementedException();
       double sum1 = 0;
       double sum2 = 0;
       int N = mesh.numberOfSteps * 2;

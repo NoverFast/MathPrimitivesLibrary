@@ -44,7 +44,7 @@ namespace MathPrimitivesLibrary.Types.Meshes
     {
       Grid = new Matrix(NumberOfStepsX, NumberOfStepsY);
       GridPoints = new Matrix(NumberOfStepsX, NumberOfStepsY);
-      StepLengthX = StepLengthY = (base.leftEdge - base.rightEdge) / NumberOfStepsX;
+      StepLengthX = StepLengthY = (base.rightEdge - base.leftEdge) / NumberOfStepsX;
 
       FillGridPoints();
     }

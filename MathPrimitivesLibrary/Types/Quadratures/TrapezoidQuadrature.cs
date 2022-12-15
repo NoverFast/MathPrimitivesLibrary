@@ -10,21 +10,14 @@ namespace MathPrimitivesLibrary.Types.Quadratures
   public class TrapezoidQuadrature : AbstractCompositionalQuadrature
   {
     public TrapezoidQuadrature(RegularMesh1D mesh, Func<double, double> function) : base(mesh, function)
-    {
-
-    }
+    {}
 
     public override double Calculate()
     {
-      double sum = 0;
-      double tmp = (mesh.leftEdge + mesh.rightEdge) / 2;
-      double tmpSum = 0;
-      for (int i = 1; i < mesh.numberOfSteps; i++)
+      double sum = (function(mesh.GridPoints[0]) + function(mesh.GridPoints[mesh.GridPoints.Size - 1])) / 2; ;
+      for (int i = 1; i < mesh.numberOfSteps-1; i++)
       {
-        //mesh.MeshY[i] = function(mesh.MeshX[i]);
-        //tmpSum += function(mesh.MeshX[i]);
-        //mesh.MeshQuadratureData[i] = tmp + tmpSum;
-        //sum = mesh.MeshQuadratureData[i];
+        sum += function(mesh.GridPoints[i]);
       }
       return sum * mesh.StepLength;
     }

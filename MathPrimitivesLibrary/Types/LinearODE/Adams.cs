@@ -14,5 +14,9 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     public Adams(RegularMesh1D mesh, double initialCondition, Func<double, double, double> function) 
       : base(mesh, initialCondition,  function)
     { }
+    public override void Solve()
+    {
+      throw new NotImplementedException();
+    }
   }
 }

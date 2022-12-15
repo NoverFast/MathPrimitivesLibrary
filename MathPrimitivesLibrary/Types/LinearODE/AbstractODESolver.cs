@@ -3,7 +3,7 @@ using MathPrimitivesLibrary.Types.Meshes;
 
 namespace MathPrimitivesLibrary.Types.LinearODE
 {
-  public class AbstractODESolver 
+  public abstract class AbstractODESolver 
   {
     protected double x0 { get; set; }
     protected double y0 { get; set; }
@@ -20,13 +20,10 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     {
       this.mesh = mesh;
       this.function = function;
-      //y0 = this.mesh.MeshY[0] = initialCondition;
-      //f = this.mesh.MeshQuadratureData[0] = this.function(x0, y0);
+      y0 = initialCondition;
+      mesh.Grid[0] = y0;
     }
 
-    public virtual double Solve()
-    {
-      return 0;
-    }
+    public abstract double Solve();
   }
 }
