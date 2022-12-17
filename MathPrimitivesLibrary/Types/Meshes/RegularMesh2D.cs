@@ -60,7 +60,7 @@ namespace MathPrimitivesLibrary.Types.Meshes
       NumberOfStepsX = numberOfStepsX;
       NumberOfStepsY = numberOfStepsY;
       StepLengthX = (rightBottom - leftBottom) / (numberOfStepsX - 1);
-      StepLengthY = (leftTop - leftBottom) / (numberOfStepsY - 1);
+      StepLengthY = (rightTop - leftBottom) / (numberOfStepsY - 1);
 
       FillGridPoints();
     }
@@ -89,11 +89,15 @@ namespace MathPrimitivesLibrary.Types.Meshes
 
     private void FillGridPoints()
     {
+      double tmpX = -1;
+      double tmpY = -1;
       for (int i = 0; i < GridPoints.Rows; i++)
       {
         for (int j = 0; j < GridPoints.Coloumns; j++)
         {
-          GridPoints[i, j] = i * StepLengthX + j * StepLengthY;
+          tmpX += StepLengthX * i;
+          tmpY += StepLengthY * j;
+          GridPoints[i, j] = tmpX + tmpY;
         }
       }
     }

@@ -19,9 +19,11 @@ namespace MathPrimitivesLibrary.Types.Meshes
 
     public void FillGridPoints()
     {
+      double tmp = leftEdge;
       for (int i = 0; i < GridPoints.Size; i++)
       {
-        GridPoints[i] = i * StepLength;
+        GridPoints[i] = tmp;
+        tmp += StepLength;
       }
     }
 
