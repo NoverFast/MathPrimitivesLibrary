@@ -36,14 +36,16 @@ namespace MathPrimitivesLibrary.Types.Meshes
     /// <summary>
     /// Матрица, которая содержит в себе все числовые значения точек в сетке
     /// </summary>
-    public Matrix GridPoints { get; set; }
+    public Matrix GridPointsX { get; set; }
+    public Matrix GridPointsY { get; set; }
     #endregion
 
     #region Constructors
     public RegularMesh2D() : base(0, 1, 100)
     {
       Grid = new Matrix(NumberOfStepsX, NumberOfStepsY);
-      GridPoints = new Matrix(NumberOfStepsX, NumberOfStepsY);
+      GridPointsX = new Matrix(NumberOfStepsX, NumberOfStepsY);
+      GridPointsY = new Matrix(NumberOfStepsX, NumberOfStepsY);
       NumberOfStepsX = base.numberOfSteps;
       NumberOfStepsY = base.numberOfSteps;
       StepLengthX = StepLengthY = (base.rightEdge - base.leftEdge) / (base.numberOfSteps -1);
@@ -56,11 +58,12 @@ namespace MathPrimitivesLibrary.Types.Meshes
       base(leftBottom, rightBottom, numberOfStepsX)
     {
       Grid = new Matrix(numberOfStepsX, numberOfStepsY);
-      GridPoints = new Matrix(numberOfStepsX, numberOfStepsY);
+      GridPointsX = new Matrix(numberOfStepsX, numberOfStepsY);
+      GridPointsY = new Matrix(numberOfStepsX, numberOfStepsY);
       NumberOfStepsX = numberOfStepsX;
       NumberOfStepsY = numberOfStepsY;
-      StepLengthX = (rightBottom - leftBottom) / (numberOfStepsX - 1);
-      StepLengthY = (rightTop - leftBottom) / (numberOfStepsY - 1);
+      StepLengthX = Math.Abs(rightTop - leftTop) / (numberOfStepsX - 1);
+      StepLengthY = Math.Abs(rightTop - leftBottom) / (numberOfStepsY - 1);
 
       FillGridPoints();
     }
@@ -72,15 +75,16 @@ namespace MathPrimitivesLibrary.Types.Meshes
       Console.WriteLine($"Step Length by X: {StepLengthX}\nStep Length by Y: {StepLengthY}");
       if (showGrid)
       {
-        GridPoints.Show(roundTo);
+        GridPointsX.Show(roundTo);
+        GridPointsY.Show(roundTo);
       }
     }
 
     public override void ClearMeshData()
     {
-      for (int i =0; i < GridPoints.Rows; i++)
+      for (int i =0; i < GridPointsX.Rows; i++)
       {
-        for (int j =0; j < GridPoints.Coloumns; j++)
+        for (int j =0; j < GridPointsX.Coloumns; j++)
         {
           Grid[i, j] = 0;
         }
@@ -91,14 +95,16 @@ namespace MathPrimitivesLibrary.Types.Meshes
     {
       double tmpX = -1;
       double tmpY = -1;
-      for (int i = 0; i < GridPoints.Rows; i++)
+      for (int i = 0; i < GridPointsX.Rows; i++)
       {
-        for (int j = 0; j < GridPoints.Coloumns; j++)
+        for (int j = 0; j < GridPointsX.Coloumns; j++)
         {
-          tmpX += StepLengthX * i;
           tmpY += StepLengthY * j;
-          GridPoints[i, j] = tmpX + tmpY;
+          GridPointsX[i, j] = tmpX;
+          GridPointsY[i, j] = tmpY;
         }
+        tmpX += StepLengthX * i;
+        tmpY = StepLengthY;
       }
     }
   }

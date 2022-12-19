@@ -40,6 +40,7 @@ namespace MathPrimitivesLibrary
         }
       }
     }
+
     public Matrix(List<double[]> data)
     {
       Rows = data.Count;
@@ -103,6 +104,19 @@ namespace MathPrimitivesLibrary
         }
         Console.WriteLine();
       }
+    }
+
+    public double Norm(int order = 2)
+    {
+      double sum = 0;
+      for (int i = 0; i < this.Rows; i++)
+      {
+        for (int j =0; j < this.Coloumns; j++)
+        {
+          sum += Math.Pow(Math.Abs(this[i, j]), order);
+        }
+      }
+      return Math.Pow(sum, 1.0 / order);
     }
 
     /// <summary>
