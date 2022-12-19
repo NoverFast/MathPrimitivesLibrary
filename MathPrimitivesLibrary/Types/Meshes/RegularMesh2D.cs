@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -68,6 +69,19 @@ namespace MathPrimitivesLibrary.Types.Meshes
       FillGridPoints();
     }
     #endregion
+
+    // TODO переписать под нормальный дженерик
+    public void WriteMeshDataToFile(string path)
+    {
+      StreamWriter sw = new StreamWriter(path);
+      for (int i = 0; i < this.NumberOfStepsX; i++)
+      {
+        for (int j = 0; j < this.NumberOfStepsY; j++)
+        {
+          sw.WriteLine(GridPointsX[i, j] + "  " + GridPointsY[i,j] + " " + Grid[i, j]);
+        }
+      }
+    }
 
     public override void ShowMeshProperties(bool showGrid = false, int roundTo = -1)
     {

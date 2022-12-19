@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace MathPrimitivesLibrary.Types.Meshes
 {
@@ -17,6 +18,15 @@ namespace MathPrimitivesLibrary.Types.Meshes
       FillGridPoints();
     }
 
+
+    public void WriteMeshDataToFile(string path)
+    {
+      StreamWriter sw = new StreamWriter(path);
+      for (int i =0; i < this.numberOfSteps; i++)
+      {
+        sw.WriteLine(GridPoints[i] + " " + Grid[i]);
+      }
+    }
     public void FillGridPoints()
     {
       double tmp = leftEdge;
