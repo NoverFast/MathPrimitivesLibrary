@@ -16,9 +16,11 @@ namespace MathPrimitivesLibrary.Types.LinearODE
     { }
     public override void Solve()
     {
+      //Console.WriteLine($"X: {mesh.GridPoints[0]} | Y: {mesh.Grid[0]}");
       for (int i = 1; i < mesh.numberOfSteps; i++)
       {
-        mesh.Grid[i] = mesh.Grid[i - 1] + mesh.StepLength * function(mesh.Grid[i - 1], mesh.Grid[i - 1]);
+        mesh.Grid[i] = mesh.Grid[i - 1] + mesh.StepLength * function(mesh.GridPoints[i - 1], mesh.Grid[i - 1]);
+        //Console.WriteLine($"X: {mesh.GridPoints[i]} | Y: {mesh.Grid[i]}");
       }
     }
   }

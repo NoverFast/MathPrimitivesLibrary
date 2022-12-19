@@ -18,7 +18,6 @@ namespace MathPrimitivesLibrary.Types.Meshes
       FillGridPoints();
     }
 
-
     public void WriteMeshDataToFile(string path)
     {
       StreamWriter sw = new StreamWriter(path);

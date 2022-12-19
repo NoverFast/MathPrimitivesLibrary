@@ -26,7 +26,7 @@ namespace MathPrimitivesLibrary.Types.LinearODE
         k3 = function(mesh.GridPoints[i - 1] + mesh.StepLength / 2,
           mesh.Grid[i - 1] + mesh.StepLength / 2 * k2);
         k4 = function(mesh.GridPoints[i - 1] + mesh.StepLength, mesh.Grid[i - 1] + mesh.StepLength * k3);
-        mesh.Grid[i] = mesh.StepLength / 6 * (k1 + 2 * k2 + 2 * k3 + k4);
+        mesh.Grid[i] = mesh.Grid[i-1] + mesh.StepLength / 6 * (k1 + 2 * k2 + 2 * k3 + k4);
       }
     }
   }
