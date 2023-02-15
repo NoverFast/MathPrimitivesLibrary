@@ -54,20 +54,21 @@ namespace MathPrimitivesLibrary.Types.Meshes
       FillGridPoints();
     }
 
-    public RegularMesh2D(double leftBottom, double rightBottom, 
-      double leftTop, double rightTop, int numberOfStepsX, int numberOfStepsY) :
-      base(leftBottom, rightBottom, numberOfStepsX)
+    public RegularMesh2D(double[] leftBottom, double[] rightBottom, 
+      double[] leftTop, double[] rightTop, int numberOfStepsX, int numberOfStepsY) :
+      base(leftBottom[0], rightBottom[0], numberOfStepsX)
     {
       Grid = new Matrix(numberOfStepsX, numberOfStepsY);
       GridPointsX = new Matrix(numberOfStepsX, numberOfStepsY);
       GridPointsY = new Matrix(numberOfStepsX, numberOfStepsY);
       NumberOfStepsX = numberOfStepsX;
       NumberOfStepsY = numberOfStepsY;
-      StepLengthX = Math.Abs(rightTop - leftTop) / (numberOfStepsX - 1);
-      StepLengthY = Math.Abs(rightTop - leftBottom) / (numberOfStepsY - 1);
+      StepLengthX = Math.Abs(rightTop[0] - leftTop[0]) / (numberOfStepsX - 1);
+      StepLengthY = Math.Abs(rightTop[1] - leftBottom[1]) / (numberOfStepsY - 1);
 
       FillGridPoints();
     }
+
     #endregion
 
     // TODO переписать под нормальный дженерик
