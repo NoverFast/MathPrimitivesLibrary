@@ -59,9 +59,9 @@ namespace MathPrimitivesLibrary.Types.Meshes
     public RegularMesh2D() : base(0, 1, 100)
     {
       Grid = new Matrix(NumberOfStepsX, NumberOfStepsY);
-      GridPoints = new Point2D[NumberOfStepsX, NumberOfStepsY];
       NumberOfStepsX = base.numberOfSteps;
       NumberOfStepsY = base.numberOfSteps;
+      GridPoints = new Point2D[NumberOfStepsX, NumberOfStepsY];
       StepLengthX = StepLengthY = (base.rightEdge - base.leftEdge) / (base.numberOfSteps -1);
     }
 
@@ -70,9 +70,9 @@ namespace MathPrimitivesLibrary.Types.Meshes
       base(leftBottom[0], rightBottom[0], numberOfStepsX)
     {
       Grid = new Matrix(numberOfStepsX, numberOfStepsY);
-      GridPoints = new Point2D[NumberOfStepsX, NumberOfStepsY];
       NumberOfStepsX = numberOfStepsX;
       NumberOfStepsY = numberOfStepsY;
+      GridPoints = new Point2D[NumberOfStepsX, NumberOfStepsY];
       StepLengthX = Math.Abs(rightTop[0] - leftTop[0]) / (numberOfStepsX - 1);
       StepLengthY = Math.Abs(rightTop[1] - leftBottom[1]) / (numberOfStepsY - 1);
 
